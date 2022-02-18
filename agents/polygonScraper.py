@@ -12,6 +12,7 @@ import numpy as np
 
 from db.database import SessionLocal
 from db.models import DbNcTransaction
+import os
 
 
 class PolygonscanScraper:
@@ -27,9 +28,8 @@ class PolygonscanScraper:
         options.add_experimental_option("useAutomationExtension", False)
         options.add_argument("--disable-blink-features=AutomationControlled")
         options.add_argument("headless")
-        service = Service(
-            r"C:\Users\kacpe\OneDrive\Pulpit\Python\Projekty\chromedriver.exe"
-        )
+        options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+        service = os.environ.get("CHROMEDRIVER_PATH")
         self.driver = webdriver.Chrome(service=service, options=options)
         self.session = SessionLocal()
 

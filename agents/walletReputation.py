@@ -8,6 +8,7 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+import os
 
 session = SessionLocal()
 
@@ -23,9 +24,8 @@ class WalletReputation:
         options.add_experimental_option("useAutomationExtension", False)
         options.add_argument("--disable-blink-features=AutomationControlled")
         options.add_argument("headless")
-        service = Service(
-            r"C:\Users\kacpe\OneDrive\Pulpit\Python\Projekty\chromedriver.exe"
-        )
+        options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+        service = os.environ.get("CHROMEDRIVER_PATH")
         self.driver = webdriver.Chrome(service=service, options=options)
 
     def paper_hand(self):
