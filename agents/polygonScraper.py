@@ -29,8 +29,9 @@ class PolygonscanScraper:
         options.add_argument("--disable-blink-features=AutomationControlled")
         options.add_argument("headless")
         options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-        service = os.environ.get("CHROMEDRIVER_PATH")
-        self.driver = webdriver.Chrome(service=service, options=options)
+        self.driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"),
+                                       options=options
+        )
         self.session = SessionLocal()
 
     def scrap_from_url(self, url):
