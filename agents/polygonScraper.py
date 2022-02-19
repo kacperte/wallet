@@ -22,12 +22,16 @@ class PolygonscanScraper:
 
     def __init__(self):
         options = Options()
-        options.add_argument("start-maximized")
-        options.add_experimental_option("excludeSwitches", ["enable-automation"])
+        options.add_argument("--headless")
+        options.add_argument("--no-sandbox")
+        options.add_argument("--disable-dev-shm-usage")
+        options.add_argument("--disable-notifications")
         options.add_experimental_option("excludeSwitches", ["enable-logging"])
-        options.add_experimental_option("useAutomationExtension", False)
-        options.add_argument("--disable-blink-features=AutomationControlled")
-        options.add_argument("headless")
+        options.add_experimental_option("excludeSwitches", ["enable-automation"])
+        prefs = {
+            "download_restrictions": 3,
+        }
+        options.add_experimental_option("prefs", prefs)
         options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
         self.driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"),
                                        options=options
