@@ -3,10 +3,10 @@ import os
 from agents.polygonScraper import PolygonscanScraper
 from agents.walletReputation import WalletReputation
 
-app = Celery(__name__)
+app = Celery("queue")
 app.conf.update(
      BROKER_URL=os.environ["REDIS_URL"],
-     CELERY_RESULT_BACKEND=os.environ["REDIS_URL"]
+     CELERY_RESULT_BACKEND=os.environ["DATABASE_URL"]
  )
 
 
