@@ -4,9 +4,14 @@ from agents.polygonScraper import PolygonscanScraper
 from agents.walletReputation import WalletReputation
 
 app = Celery("queue")
+
+SQLALCHEMY_DATABASE_URL = os.environ["DATABASE_URL"]
+if SQLALCHEMY_DATABASE_URL.startswith("postgres://"):
+    SQLALCHEMY_DATABASE_URL = SQLALCHEMY_DATABASE_URL.replace("postgres://", "postgresql://", 1)
+
 app.conf.update(
      BROKER_URL=os.environ["REDIS_URL"],
-     CELERY_RESULT_BACKEND=f"db+{os.environ['DATABASE_URL']}"
+     CELERY_RESULT_BACKEND=f"db+{SQLALCHEMY_DATABASE_URL}"
  )
 
 
