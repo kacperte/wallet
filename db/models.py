@@ -1,17 +1,17 @@
 from db.database import Base
-from sqlalchemy import Column, Integer, String, Boolean, Date
+from sqlalchemy import Column, Integer, String, Boolean, Date, BigInteger
 
 
 class DbNcTransaction(Base):
     __tablename__ = "ncTransaction"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(BigInteger, primary_key=True, index=True)
     txn_hash = Column(String)
     method = Column(String)
     datetime = Column(Date)
     From = Column(String)
     to = Column(String)
-    quantity = Column(Integer)
+    quantity = Column(BigInteger)
 
 
 class DbWalletReputation(Base):
