@@ -23,7 +23,7 @@ async def create_or_update_database(id: str):
     """
     result = wallet_reputation.apply_async(args=[id])
 
-    return {"Data": result}
+    return {"message": result}
 
 
 # Read one user
