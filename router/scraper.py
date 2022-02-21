@@ -11,7 +11,7 @@ router = APIRouter(prefix="/scraper", tags=["scraper"])
     description="This API call function scrapping all transaction from NC Coin network.",
     response_description="Message with status",
 )
-async def create_or_update_database():
+def create_or_update_database():
     result = polygon_scraper.delay()
 
     return {"Data": result}
