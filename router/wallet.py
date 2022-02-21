@@ -15,7 +15,7 @@ router = APIRouter(prefix="/wallet", tags=["wallet"])
     description="This API call function creates a wallet reputation for the specified address.",
     response_description="Message with status",
 )
-def create_or_update_database(id: str):
+async def create_or_update_database(id: str):
     """
 
     :param id: wallet adress
