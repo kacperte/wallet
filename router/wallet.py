@@ -42,6 +42,3 @@ def get_wallet(id: str, db: Session = Depends(get_db)):
     :return: json
     """
     return db_wallet(db, id)
-
-
-

@@ -7,25 +7,23 @@ app = Celery("queue")
 
 SQLALCHEMY_DATABASE_URL = os.environ["DATABASE_URL"]
 if SQLALCHEMY_DATABASE_URL.startswith("postgres://"):
-    SQLALCHEMY_DATABASE_URL = SQLALCHEMY_DATABASE_URL.replace("postgres://", "postgresql://", 1)
+    SQLALCHEMY_DATABASE_URL = SQLALCHEMY_DATABASE_URL.replace(
+        "postgres://", "postgresql://", 1
+    )
 
 app.conf.update(
-     BROKER_URL=os.environ["REDIS_URL"],
-     CELERY_RESULT_BACKEND=f"db+{SQLALCHEMY_DATABASE_URL}"
- )
+    BROKER_URL=os.environ["REDIS_URL"],
+    CELERY_RESULT_BACKEND=f"db+{SQLALCHEMY_DATABASE_URL}",
+)
 
 
 @app.task(name="polygonScraper")
 def polygon_scraper(
-        nc_url: str = "https://polygonscan.com/token/0x64a795562b02830ea4e43992e761c96d208fc58d",
-        lp_url: str = "https://polygonscan.com/token/0x78e16D2fACb80ac536887D1376ACD4EeeDF2fA08"
+    nc_url: str = "https://polygonscan.com/token/0x64a795562b02830ea4e43992e761c96d208fc58d",
+    lp_url: str = "https://polygonscan.com/token/0x78e16D2fACb80ac536887D1376ACD4EeeDF2fA08",
 ):
-    PolygonscanScraper().scrap_from_url(
-        url=nc_url
-    )
-    PolygonscanScraper().scrap_from_url(
-        url=lp_url
-    )
+    PolygonscanScraper().scrap_from_url(url=nc_url)
+    PolygonscanScraper().scrap_from_url(url=lp_url)
     return {"message": "Success"}
 
 

@@ -33,9 +33,9 @@ class PolygonscanScraper:
         }
         options.add_experimental_option("prefs", prefs)
         options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-        self.driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"),
-                                       options=options
-                                       )
+        self.driver = webdriver.Chrome(
+            executable_path=os.environ.get("CHROMEDRIVER_PATH"), options=options
+        )
         self.session = SessionLocal()
 
     def scrap_from_url(self, url):
@@ -69,12 +69,12 @@ class PolygonscanScraper:
             # Select info from table
             data = (
                 WebDriverWait(self.driver, 20)
-                    .until(
+                .until(
                     EC.visibility_of_element_located(
                         (By.CSS_SELECTOR, "table.table.table-md-text-normal")
                     )
                 )
-                    .get_attribute("outerHTML")
+                .get_attribute("outerHTML")
             )
 
             # Open as dataframe
@@ -110,12 +110,12 @@ class PolygonscanScraper:
             # Check if value is in database already
             check = (
                 self.session.query(DbNcTransaction)
-                    .filter(DbNcTransaction.txn_hash == row[0])
-                    .filter(DbNcTransaction.datetime == row[2])
-                    .filter(DbNcTransaction.to == row[4])
-                    .filter(DbNcTransaction.From == row[3])
-                    .filter(DbNcTransaction.method == row[1])
-                    .filter(DbNcTransaction.quantity == row[5])
+                .filter(DbNcTransaction.txn_hash == row[0])
+                .filter(DbNcTransaction.datetime == row[2])
+                .filter(DbNcTransaction.to == row[4])
+                .filter(DbNcTransaction.From == row[3])
+                .filter(DbNcTransaction.method == row[1])
+                .filter(DbNcTransaction.quantity == row[5])
             )
 
             # If not add value to database
@@ -131,7 +131,7 @@ class PolygonscanScraper:
     def clean_data(data_to_clean):
         # Rename values from Method column to 'Purchase of NC coins'
         con_1 = (data_to_clean.Method == "Swap Exact Token...") & (
-                data_to_clean.From == "0x78e16d2facb80ac536887d1376acd4eeedf2fa08"
+            data_to_clean.From == "0x78e16d2facb80ac536887d1376acd4eeedf2fa08"
         )
         con_2 = data_to_clean.Method == "Swap"
         con_3 = data_to_clean.Method == "Swap ETH For Exa..."
@@ -143,7 +143,7 @@ class PolygonscanScraper:
 
         # Rename values from Method column to 'Sales of NC coins'
         con_1 = (data_to_clean.Method == "Swap Exact Token...") & (
-                data_to_clean.From != "0x78e16d2facb80ac536887d1376acd4eeedf2fa08"
+            data_to_clean.From != "0x78e16d2facb80ac536887d1376acd4eeedf2fa08"
         )
         con_2 = data_to_clean.Method == "0x0773b509"
         data_to_clean.loc[con_1 | con_2, "Method"] = "Sales of NC coins"
@@ -165,7 +165,7 @@ class PolygonscanScraper:
             | (data_to_clean.To == "Paraswap v5: Augustus Swapper")
             | (data_to_clean.From == "QuickSwap: Router")
             | (data_to_clean.From == "Paraswap v5: Augustus Swapper")
-            ].index
+        ].index
         data_to_clean = data_to_clean.drop(value_to_remove, axis=0)
 
         # Remove useless columns
@@ -178,7 +178,7 @@ class PolygonscanScraper:
         # Set up unique id column
         data_to_clean["Id"] = np.arange(1, len(data_to_clean) + 1, 1)
         data_to_clean["Id"] = data_to_clean["Id"].apply(
-            lambda x: x + random.randint(0, 999999999999999999)
+            lambda x: x + random.randint(0, 99999999999)
         )
 
         return data_to_clean
