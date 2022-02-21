@@ -1,5 +1,5 @@
 from db.database import Base
-from sqlalchemy import Column, Integer, String, Boolean, Date
+from sqlalchemy import Column, Integer, String, Boolean, Date, BigInteger
 
 
 class DbNcTransaction(Base):
@@ -11,7 +11,7 @@ class DbNcTransaction(Base):
     datetime = Column(Date)
     From = Column(String)
     to = Column(String)
-    quantity = Column(Integer)
+    quantity = Column(BigInteger)
 
 
 class DbWalletReputation(Base):
