@@ -5,13 +5,13 @@ from sqlalchemy import Column, Integer, String, Boolean, Date, BigInteger
 class DbNcTransaction(Base):
     __tablename__ = "ncTransaction"
 
-    id = Column(BigInteger, primary_key=True, index=True)
+    id = Column(String, primary_key=True, index=True)
     txn_hash = Column(String)
     method = Column(String)
     datetime = Column(Date)
     From = Column(String)
     to = Column(String)
-    quantity = Column(BigInteger)
+    quantity = Column(String)
 
 
 class DbWalletReputation(Base):
