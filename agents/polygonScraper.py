@@ -1,15 +1,12 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-
 import pandas as pd
 import math
 import random
 import numpy as np
-
 from db.database import SessionLocal
 from db.models import DbNcTransaction
 import os
@@ -96,7 +93,7 @@ class PolygonscanScraper:
     def add_to_db(self, df):
         # Iterating through dataframe
         for row in df.values:
-            # prepering new value before adding to database
+            # prepering new DbNcTransaction before adding to database
             new_trans = DbNcTransaction(
                 txn_hash=row[0],
                 method=row[1],
@@ -107,11 +104,24 @@ class PolygonscanScraper:
                 id=row[6],
             )
 
-            try:
-                self.session.merge(new_trans)
-                self.session.commit()
-            finally:
-                self.session.close
+            # check if row already exists -> return True or False
+            exists = self.session.query(
+                self.session.query(DbNcTransaction)
+                .filter(DbNcTransaction.txn_hash == row[0])
+                .filter(DbNcTransaction.datetime == row[2])
+                .filter(DbNcTransaction.to == row[4])
+                .filter(DbNcTransaction.From == row[3])
+                .filter(DbNcTransaction.method == row[1])
+                .filter(DbNcTransaction.quantity == row[5])
+                .exists()
+            ).scalar()
+            if not exists:
+                try:
+                    self.session.add(new_trans)
+                    self.session.commit()
+                    self.session.refresh()
+                finally:
+                    self.session.close
 
     @staticmethod
     def clean_data(data_to_clean):
@@ -168,5 +178,3 @@ class PolygonscanScraper:
         )
 
         return data_to_clean
-
-

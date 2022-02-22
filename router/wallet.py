@@ -34,7 +34,7 @@ async def create_or_update_database(id: str):
     description="This API call function fetching a wallet reputation for the specified address.",
     response_description="Wallet reputation status",
 )
-def get_wallet_info(id: str, db: Session = Depends(get_db)):
+async def get_wallet_info(id: str, db: Session = Depends(get_db)):
     """
 
     :param id: wallet adress
