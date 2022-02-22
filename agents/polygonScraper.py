@@ -119,7 +119,7 @@ class PolygonscanScraper:
                 try:
                     self.session.add(new_trans)
                     self.session.commit()
-                    self.session.refresh()
+                    self.session.refresh(new_trans)
                 finally:
                     self.session.close
 
