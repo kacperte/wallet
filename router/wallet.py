@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 from schemas import WalletBase
 from sqlalchemy.orm.session import Session
 from db.database import get_db
-from db import db_wallet
+from db.db_wallet import get_wallet
 from tasks import wallet_reputation
 
 router = APIRouter(prefix="/wallet", tags=["wallet"])
@@ -41,5 +41,4 @@ def get_wallet(id: str, db: Session = Depends(get_db)):
     :param db: connect to database
     :return: json
     """
-    result = db_wallet(db, id)
-    return result
+    return get_wallet(db, id)
