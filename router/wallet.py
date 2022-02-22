@@ -23,15 +23,7 @@ async def create_or_update_database(id: str):
     """
     result = wallet_reputation.delay(id)
 
-    return {"message": result}
-
-
-@router.post(
-    "/sleep/{id}",
-)
-async def create_or_update_database(id: str):
-
-    return {"message": id}
+    return {"message": result.get()}
 
 
 # Read one user
