@@ -26,6 +26,14 @@ async def create_or_update_database(id: str):
     return {"message": result}
 
 
+@router.post(
+    "/sleep/{id}",
+)
+async def create_or_update_database(id: str):
+
+    return {"message": id}
+
+
 # Read one user
 @router.get(
     "/{id}",
