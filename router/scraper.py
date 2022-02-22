@@ -12,6 +12,6 @@ router = APIRouter(prefix="/scraper", tags=["scraper"])
     response_description="Message with status",
 )
 async def create_or_update_database():
-    result = polygon_scraper.delay()
+    polygon_scraper.delay()
 
-    return {"Data": result.get()}
+    return {"Data": "OK"}
