@@ -115,6 +115,7 @@ class PolygonscanScraper:
                 .filter(DbNcTransaction.quantity == row[5])
                 .exists()
             ).scalar()
+            print(exists)
             if not exists:
                 try:
                     self.session.add(new_trans)
