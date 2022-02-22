@@ -21,7 +21,7 @@ async def create_or_update_database(id: str):
     :param id: wallet adress
     :return: status info
     """
-    result = wallet_reputation.apply_async(args=[id])
+    result = wallet_reputation.delay(id)
 
     return {"message": result}
 
