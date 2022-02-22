@@ -107,23 +107,9 @@ class PolygonscanScraper:
                 id=row[6],
             )
 
-            # Check if value is in database already
-            check = (
-                self.session.query(DbNcTransaction)
-                .filter(DbNcTransaction.txn_hash == row[0])
-                .filter(DbNcTransaction.datetime == row[2])
-                .filter(DbNcTransaction.to == row[4])
-                .filter(DbNcTransaction.From == row[3])
-                .filter(DbNcTransaction.method == row[1])
-                .filter(DbNcTransaction.quantity == row[5])
-            )
-
-            # If not add value to database
-            if not self.session.query(check.exists()).scalar():
                 try:
-                    self.session.add(new_trans)
+                    self.session.merge(new_trans)
                     self.session.commit()
-                    self.session.refresh(new_trans)
                 finally:
                     self.session.close
 
