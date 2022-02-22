@@ -148,7 +148,7 @@ class WalletReputation:
             try:
                 self.session.merge(new_wallet)
                 self.session.commit()
-                #self.session.refresh(new_wallet)
+                self.session.refresh(new_wallet)
             finally:
                 self.session.close
 
