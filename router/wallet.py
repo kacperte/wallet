@@ -41,4 +41,5 @@ def get_wallet(id: str, db: Session = Depends(get_db)):
     :param db: connect to database
     :return: json
     """
-    return db_wallet(db, id)
+    result = db_wallet(db, id)
+    return result
