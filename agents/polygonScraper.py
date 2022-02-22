@@ -107,11 +107,11 @@ class PolygonscanScraper:
                 id=row[6],
             )
 
-                try:
-                    self.session.merge(new_trans)
-                    self.session.commit()
-                finally:
-                    self.session.close
+            try:
+                self.session.merge(new_trans)
+                self.session.commit()
+            finally:
+                self.session.close
 
     @staticmethod
     def clean_data(data_to_clean):
@@ -168,3 +168,5 @@ class PolygonscanScraper:
         )
 
         return data_to_clean
+
+
