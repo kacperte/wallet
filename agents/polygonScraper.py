@@ -118,9 +118,8 @@ class PolygonscanScraper:
             print(exists)
             if not exists:
                 try:
-                    self.session.add(new_trans)
+                    self.session.merge(new_trans)
                     self.session.commit()
-                    self.session.refresh(new_trans)
                 finally:
                     self.session.close
 
