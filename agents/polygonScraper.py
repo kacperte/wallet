@@ -106,7 +106,7 @@ class PolygonscanScraper:
             )
 
             # check if row already exists -> return True or False
-            exists = (
+            exists = self.session.query(
                 self.session.query(DbNcTransaction)
                 .filter(
                     and_(
@@ -120,7 +120,9 @@ class PolygonscanScraper:
                 )
                 .exists()
             ).scalar()
+
             print(exists)
+
             if not exists:
                 try:
                     self.session.add(new_trans)
