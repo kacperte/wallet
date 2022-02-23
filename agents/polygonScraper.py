@@ -91,7 +91,7 @@ class PolygonscanScraper:
             self.add_to_db(cleaned_df)
 
     def add_to_db(self, df):
-        # Iterating through dataframe
+        # iterating through dataframe
         for row in df.values:
             # prepering new DbNcTransaction before adding to database
             new_trans = DbNcTransaction(
@@ -122,7 +122,7 @@ class PolygonscanScraper:
                     self.session.commit()
                     self.session.refresh(new_trans)
                 finally:
-                    pass
+                    self.session.close()
 
     @staticmethod
     def clean_data(data_to_clean):
