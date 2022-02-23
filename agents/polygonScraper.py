@@ -10,6 +10,7 @@ import numpy as np
 from db.database import SessionLocal
 from db.models import DbNcTransaction
 import os
+from sqlalchemy import and_
 
 
 class PolygonscanScraper:
@@ -105,16 +106,20 @@ class PolygonscanScraper:
             )
 
             # check if row already exists -> return True or False
-            exists = self.session.query(
+            exists = (
                 self.session.query(DbNcTransaction)
-                .filter(DbNcTransaction.txn_hash == row[0])
-                .filter(DbNcTransaction.method == row[1])
-                .filter(DbNcTransaction.datetime == row[2])
-                .filter(DbNcTransaction.From == row[3])
-                .filter(DbNcTransaction.to == row[4])
-                .filter(DbNcTransaction.quantity == row[5])
-                .exists()
-            ).scalar()
+                .filter(
+                    and_(
+                        DbNcTransaction.txn_hash == row[0],
+                        DbNcTransaction.method == row[1],
+                        DbNcTransaction.datetime == row[2],
+                        DbNcTransaction.From == row[3],
+                        DbNcTransaction.to == row[4],
+                        DbNcTransaction.quantity == row[5],
+                    ).exists()
+                )
+                .scalar()
+            )
             print(exists)
             if not exists:
                 try:

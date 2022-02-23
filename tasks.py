@@ -19,7 +19,7 @@ app.conf.update(
 
 @app.task(name="polygonScraper-NC")
 def polygon_scraper_nc(
-    nc_url: str = "https://polygonscan.com/token/0x64a795562b02830ea4e43992e761c96d208fc58d"
+    nc_url: str = "https://polygonscan.com/token/0x64a795562b02830ea4e43992e761c96d208fc58d",
 ):
     PolygonscanScraper().scrap_from_url(url=nc_url)
 
