@@ -116,10 +116,10 @@ class PolygonscanScraper:
                         DbNcTransaction.From == row[3],
                         DbNcTransaction.to == row[4],
                         DbNcTransaction.quantity == row[5],
-                    ).exists()
+                    )
                 )
-                .scalar()
-            )
+                .exists()
+            ).scalar()
             print(exists)
             if not exists:
                 try:
