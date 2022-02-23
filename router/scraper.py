@@ -11,7 +11,7 @@ router = APIRouter(prefix="/scraper", tags=["scraper"])
     description="This API call function scrapping all transaction from network.",
     response_description="Message with status",
 )
-async def create_or_update_database():
+async def create_or_update_database_nc():
     polygon_scraper_nc.delay()
 
     return {"Data": "OK"}
@@ -24,7 +24,7 @@ async def create_or_update_database():
     description="This API call function scrapping all transaction from network.",
     response_description="Message with status",
 )
-async def create_or_update_database():
+async def create_or_update_database_lp():
     polygon_scraper_lp.delay()
 
     return {"Data": "OK"}
