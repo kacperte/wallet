@@ -109,7 +109,7 @@ class PolygonscanScraper:
                 self.session.query(DbNcTransaction)
                 .filter(DbNcTransaction.txn_hash == row[0])
                 .filter(DbNcTransaction.method == row[1])
-                # .filter(DbNcTransaction.datetime == row[2])
+                .filter(DbNcTransaction.datetime == row[2])
                 # .filter(DbNcTransaction.From == row[3])
                 # .filter(DbNcTransaction.to == row[4])
                 # .filter(DbNcTransaction.quantity == row[5])
@@ -118,8 +118,9 @@ class PolygonscanScraper:
             print(exists)
             if not exists:
                 try:
-                    self.session.merge(new_trans)
+                    self.session.add(new_trans)
                     self.session.commit()
+                    self.session.refresh(new_trans)
                 finally:
                     self.session.close
 
