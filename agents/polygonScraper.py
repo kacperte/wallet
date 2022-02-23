@@ -108,7 +108,7 @@ class PolygonscanScraper:
             exists = self.session.query(
                 self.session.query(DbNcTransaction)
                 .filter(DbNcTransaction.txn_hash == row[0])
-                #.filter(DbNcTransaction.method == row[1])
+                # .filter(DbNcTransaction.method == row[1])
                 .filter(DbNcTransaction.datetime == row[2])
                 #  .filter(DbNcTransaction.From == row[3])
                 # .filter(DbNcTransaction.to == row[4])
