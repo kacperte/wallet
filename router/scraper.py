@@ -28,3 +28,4 @@ async def create_or_update_database_lp():
     polygon_scraper_lp.delay()
 
     return {"Data": "OK"}
+
