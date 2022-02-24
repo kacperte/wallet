@@ -7,8 +7,13 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 import os
+from collections import namedtuple
 
 session = SessionLocal()
+
+
+PaperHand = namedtuple("PaperHand", "result paper_hand")
+LP = namedtuple("LP", "balance add_lp_list added add_lp remove_lp")
 
 
 class WalletReputation:
@@ -43,7 +48,7 @@ class WalletReputation:
 
         paper_hand = ",".join(paper_hand)
         result = True if len(paper_hand) > 0 else False
-        return result, paper_hand
+        return PaperHand(result, paper_hand)
 
     def lp_balance(self):
         add_lp_list = []
@@ -66,10 +71,10 @@ class WalletReputation:
 
         add_lp = round(sum(add_lp_list), 5)
         remove_lp = round(sum(remove_lp_list), 5)
-        added = True if len(add_lp_list) > 0 else False
+        added = bool(add_lp_list)
         balance = add_lp - remove_lp
 
-        return round(balance, 2), len(add_lp_list), added, add_lp, remove_lp
+        return LP(round(balance, 2), len(add_lp_list), added, add_lp, remove_lp)
 
     def nc_balance(self):
         base_url = "https://polygonscan.com/token/0x64a795562b02830ea4e43992e761c96d208fc58d?a="
@@ -110,30 +115,20 @@ class WalletReputation:
         )
         if not self.session.query(q.exists()).scalar():
             return {"Message": "Addres not exist"}
-        result = {
-            "adress": self.adress,
-            "time_in_nc": self.time_in_nc(),
-            "paper_hands": self.paper_hand()[0],
-            "proofs": self.paper_hand()[1],
-            "did_wallet_add_lp": self.lp_balance()[2],
-            "how_may_time_add_lp": self.lp_balance()[1],
-            "lp_balance": self.lp_balance()[0],
-            "nc_balance": self.nc_balance(),
-        }
 
         new_wallet = DbWalletReputation(
-            adress=result["adress"],
-            time_in_nc=result["time_in_nc"],
-            paper_hands=result["paper_hands"],
-            proofs=result["proofs"],
-            did_wallet_add_lp=result["did_wallet_add_lp"],
-            how_many_time_add_lp=result["how_may_time_add_lp"],
-            lp_balance=result["lp_balance"],
-            nc_balance=result["nc_balance"],
+            adress=self.adress,
+            time_in_nc=self.time_in_nc(),
+            paper_hands=self.paper_hand().paper_hand,
+            proofs=self.paper_hand().result,
+            did_wallet_add_lp=self.lp_balance().added,
+            how_many_time_add_lp=self.lp_balance().add_lp_list,
+            lp_balance=self.lp_balance().balance,
+            nc_balance=self.nc_balance(),
         )
 
         q = self.session.query(DbWalletReputation).filter(
-            DbWalletReputation.adress == result["adress"]
+            DbWalletReputation.adress == self.adress
         )
         if not self.session.query(q.exists()).scalar():
             try:
