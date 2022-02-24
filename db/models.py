@@ -1,5 +1,5 @@
 from db.database import Base
-from sqlalchemy import Column, Integer, String, Boolean, Date, BigInteger
+from sqlalchemy import Column, Integer, String, Boolean, DateTime, BigInteger, Float
 
 
 class DbNcTransaction(Base):
@@ -8,10 +8,10 @@ class DbNcTransaction(Base):
     id = Column(BigInteger, primary_key=True, index=True)
     txn_hash = Column(String)
     method = Column(String)
-    datetime = Column(Date)
+    datetime = Column(DateTime)
     From = Column(String)
     to = Column(String)
-    quantity = Column(BigInteger)
+    quantity = Column(Float)
 
 
 class DbWalletReputation(Base):
