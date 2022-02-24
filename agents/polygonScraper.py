@@ -104,6 +104,7 @@ class PolygonscanScraper:
                 quantity=row[5],
                 id=row[6],
             )
+            print([i for i in row])
 
             # check if row already exists -> return True or False
             exists = self.session.query(
