@@ -138,14 +138,16 @@ class WalletReputation:
                 self.session.add(new_wallet)
                 self.session.commit()
                 self.session.refresh(new_wallet)
-            finally:
-                self.session.close
+            except:
+                pass
         else:
             try:
                 self.session.merge(new_wallet)
                 self.session.commit()
-            finally:
-                self.session.close
+            except:
+                pass
+
+        self.session.close
 
         return {"Message": "Success"}
 

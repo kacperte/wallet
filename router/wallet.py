@@ -23,7 +23,7 @@ async def create_or_update_database(id: str):
     """
     result = wallet_reputation.delay(id)
 
-    return {"message": result.get()}
+    return {"message": "OK"}
 
 
 # Read one user
