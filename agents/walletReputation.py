@@ -56,7 +56,7 @@ class WalletReputation:
             paper_hand.append(row.txn_hash)
 
         paper_hand = ",".join(paper_hand)
-        result = True if len(paper_hand) > 0 else False
+        result = bool(paper_hand)
         return PaperHand(result, paper_hand)
 
     def lp_balance(self):
@@ -138,14 +138,14 @@ class WalletReputation:
                 self.session.add(new_wallet)
                 self.session.commit()
                 self.session.refresh(new_wallet)
-            except:
-                pass
+            except Exception as e:
+                print(f"Add new: {e}")
         else:
             try:
                 self.session.merge(new_wallet)
                 self.session.commit()
-            except:
-                pass
+            except Exception as e:
+                print(f"Update: {e}")
 
         self.session.close
 
