@@ -55,8 +55,8 @@ class WalletReputation:
         ):
             paper_hand.append(row.txn_hash)
 
-        paper_hand = ",".join(paper_hand)
-        result = bool(paper_hand)
+        result = ",".join(paper_hand)
+        paper_hand = bool(result)
         return PaperHand(result, paper_hand)
 
     def lp_balance(self):
