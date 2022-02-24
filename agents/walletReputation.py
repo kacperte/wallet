@@ -18,7 +18,9 @@ LP = namedtuple("LP", "balance add_lp_list added add_lp remove_lp")
 
 def select_time_in_nc(address: str):
     for row in (
-        session.query(DbNcTransaction).filter(DbNcTransaction.to == address).all()
+        session.query(DbNcTransaction)
+        .filter(DbNcTransaction.to == address.lower())
+        .all()
     ):
         yield row
 
