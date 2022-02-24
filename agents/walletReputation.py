@@ -16,6 +16,13 @@ PaperHand = namedtuple("PaperHand", "result paper_hand")
 LP = namedtuple("LP", "balance add_lp_list added add_lp remove_lp")
 
 
+def select_time_in_nc(address: str):
+    for row in (
+        session.query(DbNcTransaction).filter(DbNcTransaction.to == address).all()
+    ):
+        yield row
+
+
 class WalletReputation:
     def __init__(self, adress: str):
         self.adress = adress.lower()
@@ -96,13 +103,7 @@ class WalletReputation:
         return nc_balance
 
     def time_in_nc(self):
-        dates = []
-        for row in (
-            session.query(DbNcTransaction)
-            .filter(DbNcTransaction.to == self.adress)
-            .all()
-        ):
-            dates.append(row.datetime)
+        dates = [row.datetime for row in select_time_in_nc(self.adress)]
         nc_oldest_date = min(dates).strftime("%Y-%m-%d")
         today = datetime.today().strftime("%Y-%m-%d")
         how_long_nc = self.days_between(today, nc_oldest_date)
