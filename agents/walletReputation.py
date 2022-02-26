@@ -16,7 +16,7 @@ PaperHand = namedtuple("PaperHand", "result paper_hand")
 LP = namedtuple("LP", "balance add_lp_list added add_lp remove_lp")
 
 
-def select_time_in_nc(address: str):
+def select_time_in_nc_generator(address: str):
     for row in (
         session.query(DbNcTransaction)
         .filter(DbNcTransaction.to == address.lower())
@@ -25,9 +25,19 @@ def select_time_in_nc(address: str):
         yield row
 
 
+def paper_hand_generator(address: str):
+    for row in (
+        session.query(DbNcTransaction)
+        .filter(DbNcTransaction.From == address)
+        .filter(DbNcTransaction.method == "Sales of NC coins")
+        .all()
+    ):
+        yield row
+
+
 class WalletReputation:
-    def __init__(self, adress: str):
-        self.adress = adress.lower()
+    def __init__(self, address: str):
+        self.address = address.lower()
         self.session = SessionLocal()
         options = Options()
         options.add_argument("--headless")
@@ -46,15 +56,7 @@ class WalletReputation:
         )
 
     def paper_hand(self):
-        paper_hand = []
-        for row in (
-            session.query(DbNcTransaction)
-            .filter(DbNcTransaction.From == self.adress)
-            .filter(DbNcTransaction.method == "Sales of NC coins")
-            .all()
-        ):
-            paper_hand.append(row.txn_hash)
-
+        paper_hand = [row.txn_hash for row in paper_hand_generator(self.address)]
         result = ",".join(paper_hand)
         paper_hand = bool(result)
         return PaperHand(result, paper_hand)
@@ -64,7 +66,7 @@ class WalletReputation:
         remove_lp_list = []
         for row in (
             session.query(DbNcTransaction)
-            .filter(DbNcTransaction.to == self.adress)
+            .filter(DbNcTransaction.to == self.address)
             .filter(DbNcTransaction.method == "Add Liquidity")
             .all()
         ):
@@ -72,7 +74,7 @@ class WalletReputation:
 
         for row in (
             session.query(DbNcTransaction)
-            .filter(DbNcTransaction.From == self.adress)
+            .filter(DbNcTransaction.From == self.address)
             .filter(DbNcTransaction.method == "Remove Liquidity")
             .all()
         ):
@@ -87,7 +89,7 @@ class WalletReputation:
 
     def nc_balance(self):
         base_url = "https://polygonscan.com/token/0x64a795562b02830ea4e43992e761c96d208fc58d?a="
-        self.driver.get(base_url + self.adress)
+        self.driver.get(base_url + self.address)
 
         nc_balance = (
             WebDriverWait(self.driver, 20)
@@ -105,7 +107,7 @@ class WalletReputation:
         return nc_balance
 
     def time_in_nc(self):
-        dates = [row.datetime for row in select_time_in_nc(self.adress)]
+        dates = [row.datetime for row in select_time_in_nc_generator(self.address)]
         nc_oldest_date = min(dates).strftime("%Y-%m-%d")
         today = datetime.today().strftime("%Y-%m-%d")
         how_long_nc = self.days_between(today, nc_oldest_date)
@@ -114,13 +116,13 @@ class WalletReputation:
 
     def add_reputation_to_db(self):
         q = self.session.query(DbNcTransaction).filter(
-            DbNcTransaction.to == self.adress
+            DbNcTransaction.to == self.address
         )
         if not self.session.query(q.exists()).scalar():
             return {"Message": "Addres not exist"}
 
         new_wallet = DbWalletReputation(
-            adress=self.adress,
+            address=self.address,
             time_in_nc=self.time_in_nc(),
             paper_hands=self.paper_hand().paper_hand,
             proofs=self.paper_hand().result,
@@ -131,7 +133,7 @@ class WalletReputation:
         )
 
         q = self.session.query(DbWalletReputation).filter(
-            DbWalletReputation.adress == self.adress
+            DbWalletReputation.address == self.address
         )
         if not self.session.query(q.exists()).scalar():
             try:
