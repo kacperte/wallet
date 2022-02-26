@@ -127,7 +127,7 @@ class WalletReputation:
             return {"Message": "Addres not exist"}
 
         new_wallet = DbWalletReputation(
-            address=self.address,
+            adress=self.address,
             time_in_nc=self.time_in_nc(),
             paper_hands=self.paper_hand().paper_hand,
             proofs=self.paper_hand().result,
