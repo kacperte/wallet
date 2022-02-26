@@ -11,7 +11,6 @@ from collections import namedtuple
 
 session = SessionLocal()
 
-
 PaperHand = namedtuple("PaperHand", "result paper_hand")
 LP = namedtuple("LP", "balance add_lp_list added add_lp remove_lp")
 
