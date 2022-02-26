@@ -35,6 +35,26 @@ def paper_hand_generator(address: str):
         yield row
 
 
+def lp_balance_plus_generator(address: str):
+    for row in (
+        session.query(DbNcTransaction)
+        .filter(DbNcTransaction.to == address)
+        .filter(DbNcTransaction.method == "Add Liquidity")
+        .all()
+    ):
+        yield row
+
+
+def lp_balance_minus_generator(address: str):
+    for row in (
+        session.query(DbNcTransaction)
+        .filter(DbNcTransaction.From == address)
+        .filter(DbNcTransaction.method == "Remove Liquidity")
+        .all()
+    ):
+        yield row
+
+
 class WalletReputation:
     def __init__(self, address: str):
         self.address = address.lower()
@@ -62,24 +82,10 @@ class WalletReputation:
         return PaperHand(result, paper_hand)
 
     def lp_balance(self):
-        add_lp_list = []
-        remove_lp_list = []
-        for row in (
-            session.query(DbNcTransaction)
-            .filter(DbNcTransaction.to == self.address)
-            .filter(DbNcTransaction.method == "Add Liquidity")
-            .all()
-        ):
-            add_lp_list.append(row.quantity)
-
-        for row in (
-            session.query(DbNcTransaction)
-            .filter(DbNcTransaction.From == self.address)
-            .filter(DbNcTransaction.method == "Remove Liquidity")
-            .all()
-        ):
-            remove_lp_list.append(row.quantity)
-
+        add_lp_list = [row.quantity for row in lp_balance_plus_generator(self.address)]
+        remove_lp_list = [
+            row.quantity for row in lp_balance_minus_generator(self.address)
+        ]
         add_lp = round(sum(add_lp_list), 5)
         remove_lp = round(sum(remove_lp_list), 5)
         added = bool(add_lp_list)
