@@ -9,12 +9,15 @@ from selenium.webdriver.common.by import By
 import os
 from collections import namedtuple
 
+# open db session for generator function
 session = SessionLocal()
 
+# create namedtuple
 PaperHand = namedtuple("PaperHand", "result paper_hand")
 LP = namedtuple("LP", "balance add_lp_list added add_lp remove_lp")
 
 
+# Generator to optimize code
 def select_time_in_nc_generator(address: str):
     for row in (
         session.query(DbNcTransaction)
@@ -55,7 +58,14 @@ def lp_balance_minus_generator(address: str):
 
 
 class WalletReputation:
+    """
+    Class responsible for creating, updating and adding to the wallet reputation database.
+    """
+
     def __init__(self, address: str):
+        """
+        :param address: wallet address
+        """
         self.address = address.lower()
         self.session = SessionLocal()
         options = Options()
@@ -75,27 +85,35 @@ class WalletReputation:
         )
 
     def paper_hand(self):
+        # check if address whenever has sold NC -> create list with txn hash
         paper_hand = [row.txn_hash for row in paper_hand_generator(self.address)]
+        # join txn hash list to str seperate with comma
         result = ",".join(paper_hand)
         paper_hand = bool(result)
         return PaperHand(result, paper_hand)
 
     def lp_balance(self):
+        # list with number of added LPs
         add_lp_list = [row.quantity for row in lp_balance_plus_generator(self.address)]
+        # list with number of removed LP
         remove_lp_list = [
             row.quantity for row in lp_balance_minus_generator(self.address)
         ]
+        # rounding value
         add_lp = round(sum(add_lp_list), 5)
         remove_lp = round(sum(remove_lp_list), 5)
+        # check if wallet ad LP - boolen value
         added = bool(add_lp_list)
+        # final LP balance
         balance = add_lp - remove_lp
-
         return LP(round(balance, 2), len(add_lp_list), added, add_lp, remove_lp)
 
     def nc_balance(self):
+        # generate wallet address URL
         base_url = "https://polygonscan.com/token/0x64a795562b02830ea4e43992e761c96d208fc58d?a="
         self.driver.get(base_url + self.address)
 
+        # scrap NC balance info
         nc_balance = (
             WebDriverWait(self.driver, 20)
             .until(
@@ -106,26 +124,32 @@ class WalletReputation:
             .text
         )
 
+        # clean value to final form
         nc_balance = nc_balance.split()[1]
         nc_balance = round(float(nc_balance.replace(",", "")), 2)
 
         return nc_balance
 
     def time_in_nc(self):
+        # create list with transactions date
         dates = [row.datetime for row in select_time_in_nc_generator(self.address)]
+        # check which transaction has the oldest date
         nc_oldest_date = min(dates).strftime("%Y-%m-%d")
         today = datetime.today().strftime("%Y-%m-%d")
+        # calculate how long wallet has NC
         how_long_nc = self.days_between(today, nc_oldest_date)
 
         return how_long_nc
 
     def add_reputation_to_db(self):
-        q = self.session.query(DbNcTransaction).filter(
+        # check if address exists
+        query = self.session.query(DbNcTransaction).filter(
             DbNcTransaction.to == self.address
         )
-        if not self.session.query(q.exists()).scalar():
+        if not self.session.query(query.exists()).scalar():
             return {"Message": "Addres not exist"}
 
+        # prepare model for new wallet
         new_wallet = DbWalletReputation(
             adress=self.address,
             time_in_nc=self.time_in_nc(),
@@ -137,16 +161,20 @@ class WalletReputation:
             nc_balance=self.nc_balance(),
         )
 
-        q = self.session.query(DbWalletReputation).filter(
+        # check if wallet is already in db
+        query = self.session.query(DbWalletReputation).filter(
             DbWalletReputation.adress == self.address
         )
-        if not self.session.query(q.exists()).scalar():
+
+        # if no, generate new wallet
+        if not self.session.query(query.exists()).scalar():
             try:
                 self.session.add(new_wallet)
                 self.session.commit()
                 self.session.refresh(new_wallet)
             except Exception as e:
                 print(f"Add new: {e}")
+        # update wallet
         else:
             try:
                 self.session.merge(new_wallet)
@@ -156,10 +184,14 @@ class WalletReputation:
 
         self.session.close
 
-        return {"Message": "Success"}
-
     @staticmethod
-    def days_between(d1, d2):
+    def days_between(d1, d2) -> int:
+        """
+
+        :param d1: datatime format
+        :param d2: datatime format
+        :return: integer value
+        """
         d1 = datetime.strptime(d1, "%Y-%m-%d")
         d2 = datetime.strptime(d2, "%Y-%m-%d")
         return abs((d2 - d1).days)
