@@ -138,7 +138,7 @@ class WalletReputation:
         )
 
         q = self.session.query(DbWalletReputation).filter(
-            DbWalletReputation.address == self.address
+            DbWalletReputation.adress == self.address
         )
         if not self.session.query(q.exists()).scalar():
             try:
