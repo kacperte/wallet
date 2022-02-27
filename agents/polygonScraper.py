@@ -11,6 +11,7 @@ from db.database import SessionLocal
 from db.models import DbNcTransaction
 import os
 from sqlalchemy import and_
+import psutil
 
 
 class PolygonscanScraper:
@@ -39,6 +40,7 @@ class PolygonscanScraper:
     def scrap_from_url(self, url):
         # Connect to url
         self.driver.get(url)
+        print(psutil.virtual_memory(), "Function start")
 
         # Cookies
         WebDriverWait(self.driver, 20).until(
@@ -64,6 +66,7 @@ class PolygonscanScraper:
 
         # Loop through a table
         for _ in range(num):
+            print(psutil.virtual_memory(), "Loop starts")
             # Select info from table
             data = (
                 WebDriverWait(self.driver, 20)
@@ -74,10 +77,10 @@ class PolygonscanScraper:
                 )
                 .get_attribute("outerHTML")
             )
-
+            print(psutil.virtual_memory(), "before df")
             # Open as dataframe
             df = pd.read_html(data)[0]
-
+            print(psutil.virtual_memory(), "after df")
             # Click to next page
             WebDriverWait(self.driver, 20).until(
                 EC.element_to_be_clickable(
@@ -87,9 +90,11 @@ class PolygonscanScraper:
 
             # Clean dataframe
             cleaned_df = self.clean_data(data_to_clean=df)
+            print(psutil.virtual_memory(), "after clean")
 
             # Add to database
             self.add_to_db(cleaned_df)
+            print(psutil.virtual_memory(), "after add to db")
 
     def add_to_db(self, df):
         # iterating through dataframe
