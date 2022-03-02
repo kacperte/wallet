@@ -60,7 +60,7 @@ def lp_balance_minus_generator(address: str):
 def claim_balance_generator(address: str):
     for row in (
         session.query(DbNcTransaction)
-        .filter(DbNcTransaction.From == address)
+        .filter(DbNcTransaction.To == address)
         .filter(DbNcTransaction.method == "Claim")
         .all()
     ):
@@ -157,15 +157,8 @@ class WalletReputation:
         return how_long_nc
 
     def claim_balance(self):
-        # claim_action = [row.quantity for row in claim_balance_generator(self.address)]
-        for row in (
-            session.query(DbNcTransaction)
-            .filter(DbNcTransaction.From == self.address)
-            .filter(DbNcTransaction.method == "Claim")
-            .all()
-        ):
-            print(row)
-        claim_action = 0
+        claim_action = [row.quantity for row in claim_balance_generator(self.address)]
+        claim_action = round(sum(claim_action), 5)
         return claim_action
 
     def add_reputation_to_db(self):
