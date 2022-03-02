@@ -157,9 +157,15 @@ class WalletReputation:
         return how_long_nc
 
     def claim_balance(self):
-        claim_action = [row.quantity for row in claim_balance_generator(self.address)]
-        print(claim_action)
-        claim_action = round(sum(claim_action), 5)
+        # claim_action = [row.quantity for row in claim_balance_generator(self.address)]
+        for row in (
+            session.query(DbNcTransaction)
+            .filter(DbNcTransaction.From == self.address)
+            .filter(DbNcTransaction.method == "Claim")
+            .all()
+        ):
+            print(row)
+        claim_action = 0
         return claim_action
 
     def add_reputation_to_db(self):
