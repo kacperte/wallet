@@ -126,6 +126,8 @@ class PolygonscanScraper:
                     self.session.refresh(new_trans)
                 finally:
                     self.session.close()
+            else:
+                break
 
     @staticmethod
     def clean_data(data_to_clean):
