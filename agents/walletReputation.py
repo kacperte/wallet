@@ -57,6 +57,16 @@ def lp_balance_minus_generator(address: str):
         yield row
 
 
+def claim_balance_generator(address: str):
+    for row in (
+        session.query(DbNcTransaction)
+        .filter(DbNcTransaction.From == address)
+        .filter(DbNcTransaction.method == "Claim")
+        .all()
+    ):
+        yield row
+
+
 class WalletReputation:
     """
     Class responsible for creating, updating and adding to the wallet reputation database.
@@ -146,6 +156,11 @@ class WalletReputation:
 
         return how_long_nc
 
+    def claim_balance(self):
+        claim_action = [row.quantity for row in claim_balance_generator(self.address)]
+        claim_action = round(sum(claim_action), 5)
+        return claim_action
+
     def add_reputation_to_db(self):
         # Check if address exists
         query = self.session.query(DbNcTransaction).filter(
@@ -164,6 +179,7 @@ class WalletReputation:
             how_many_time_add_lp=self.lp_balance().add_lp_list,
             lp_balance=self.lp_balance().balance,
             nc_balance=self.nc_balance(),
+            claim_balance=self.claim_balance(),
         )
 
         # Check if wallet is already in db

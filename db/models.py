@@ -25,3 +25,4 @@ class DbWalletReputation(Base):
     how_many_time_add_lp = Column(Integer)
     lp_balance = Column(Integer)
     nc_balance = Column(Integer)
+    claim_balance = Column(Integer)

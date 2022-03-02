@@ -10,6 +10,7 @@ class WalletBase(BaseModel):
     how_many_time_add_lp: int = None
     lp_balance: int = None
     nc_balance: int = None
+    claim_balance: int = None
 
     class Config:
         orm_mode = True
