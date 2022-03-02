@@ -158,6 +158,7 @@ class WalletReputation:
 
     def claim_balance(self):
         claim_action = [row.quantity for row in claim_balance_generator(self.address)]
+        print(claim_action)
         claim_action = round(sum(claim_action), 5)
         return claim_action
 

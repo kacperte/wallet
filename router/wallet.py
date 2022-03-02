@@ -23,7 +23,7 @@ async def create_or_update_database(id: str):
     """
     wallet_reputation.delay(id)
 
-    return {"message": "OK"}
+    return {"Status": "Task successfully add to execute"}
 
 
 # Read one user
