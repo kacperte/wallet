@@ -26,3 +26,4 @@ class DbWalletReputation(Base):
     lp_balance = Column(Integer)
     nc_balance = Column(Integer)
     claim_balance = Column(Integer)
+    add_to_yf = Column(Boolean)

@@ -15,6 +15,7 @@ session = SessionLocal()
 # Create namedtuple
 PaperHand = namedtuple("PaperHand", "result paper_hand")
 LP = namedtuple("LP", "balance add_lp_list added add_lp remove_lp")
+YF = namedtuple("YF", "balance yf_plus yf_minus added")
 
 
 # Generator to optimize code
@@ -62,6 +63,26 @@ def claim_balance_generator(address: str):
         session.query(DbNcTransaction)
         .filter(DbNcTransaction.to == address)
         .filter(DbNcTransaction.method == "Claim")
+        .all()
+    ):
+        yield row
+
+
+def yf_balance_plus_generator(address: str):
+    for row in (
+        session.query(DbNcTransaction)
+        .filter(DbNcTransaction.From == address)
+        .filter(DbNcTransaction.method == "Stake")
+        .all()
+    ):
+        yield row
+
+
+def yf_balance_minus_generator(address: str):
+    for row in (
+        session.query(DbNcTransaction)
+        .filter(DbNcTransaction.to == address)
+        .filter(DbNcTransaction.method == "Unstake")
         .all()
     ):
         yield row
@@ -157,9 +178,23 @@ class WalletReputation:
         return how_long_nc
 
     def claim_balance(self):
+        # Create list with quantity of claim transactions
         claim_action = [row.quantity for row in claim_balance_generator(self.address)]
+
+        # Rounding value
         claim_action = round(sum(claim_action), 5)
         return claim_action
+
+    def yf_balance(self):
+        plus_trans = round(
+            sum([row.quantity for row in yf_balance_plus_generator(self.address)]), 5
+        )
+        minus_trans = round(
+            sum([row.quantity for row in yf_balance_minus_generator(self.address)]), 5
+        )
+        yf_balance = plus_trans - minus_trans
+        add_to_yf = bool(plus_trans)
+        return YF(yf_balance, plus_trans, minus_trans, add_to_yf)
 
     def add_reputation_to_db(self):
         # Check if address exists
@@ -180,6 +215,7 @@ class WalletReputation:
             lp_balance=self.lp_balance().balance,
             nc_balance=self.nc_balance(),
             claim_balance=self.claim_balance(),
+            add_to_yf=self.yf_balance(),
         )
 
         # Check if wallet is already in db
