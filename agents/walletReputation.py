@@ -60,7 +60,7 @@ def lp_balance_minus_generator(address: str):
 def claim_balance_generator(address: str):
     for row in (
         session.query(DbNcTransaction)
-        .filter(DbNcTransaction.To == address)
+        .filter(DbNcTransaction.to == address)
         .filter(DbNcTransaction.method == "Claim")
         .all()
     ):
