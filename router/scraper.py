@@ -4,7 +4,6 @@ from tasks import polygon_scraper_lp, polygon_scraper_nc
 router = APIRouter(prefix="/scraper", tags=["scraper"])
 
 
-# Connect to polygonscan, collect data (nc transaction) to create/update Database
 @router.post(
     "/run-nc",
     summary="Scrap polygonscan to retrive NC transaction",
@@ -18,7 +17,6 @@ async def create_or_update_database_nc():
     return {"Status": "Task successfully add to execute"}
 
 
-# Connect to polygonscan, collect data (lp transaction) to create/update Database
 @router.post(
     "/run-lp",
     summary="Scrap polygonscan to retrive LP transaction",
