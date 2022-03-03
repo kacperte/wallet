@@ -215,7 +215,7 @@ class WalletReputation:
             lp_balance=self.lp_balance().balance,
             nc_balance=self.nc_balance(),
             claim_balance=self.claim_balance(),
-            add_to_yf=self.yf_balance(),
+            add_to_yf=self.yf_balance().added,
         )
 
         # Check if wallet is already in db
