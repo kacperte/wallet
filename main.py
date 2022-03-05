@@ -12,8 +12,8 @@ templates = Jinja2Templates(directory="templates")
 
 
 @app.get("/")
-def index():
-    return templates.TemplateResponse("main_page.html")
+def index(request: Request):
+    return templates.TemplateResponse("main_page.html", context={"request": request})
 
 
 models.Base.metadata.create_all(engine)
