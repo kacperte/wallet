@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Request
 from schemas import WalletBase
 from sqlalchemy.orm.session import Session
 from db.database import get_db
@@ -38,12 +38,15 @@ async def create_or_update_database(id: str):
     description="This API call function fetching a wallet reputation for the specified address.",
     response_description="Wallet reputation status",
 )
-def get_wallet_info(id: str, db: Session = Depends(get_db)):
+def get_wallet_info(request: Request, id: str, db: Session = Depends(get_db)):
     """
 
+    :param request: request
     :param id: wallet adress
     :param db: connect to database
     :return: json
     """
     result = get_wallet(db, id)
-    return templates.TemplateResponse("results_page.html", context={"result": result})
+    return templates.TemplateResponse(
+        "results_page.html", context={"request": request, "result": result}
+    )
