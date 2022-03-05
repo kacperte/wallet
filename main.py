@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, Form
 from db import models
 from db.database import engine
 from router import wallet, scraper
@@ -12,7 +12,7 @@ templates = Jinja2Templates(directory="templates")
 
 
 @app.get("/")
-def index(request: Request):
+async def index(request: Request, id: str = Form(...)):
     return templates.TemplateResponse("main_page.html", context={"request": request})
 
 
