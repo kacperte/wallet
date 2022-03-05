@@ -6,7 +6,9 @@
 </head>
 <body>
     <div class="results">
-        {{result}}
+        {{% for row in result %}}
+            {{ row }}
+        {{% endfor %}}
     </div>
 </body>
 </html>
