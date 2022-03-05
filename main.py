@@ -12,7 +12,7 @@ templates = Jinja2Templates(directory="templates")
 
 
 @app.post("/")
-def index(request: Request, id: str = Form(...)):
+async def index(request: Request, id: str = Form(...)):
     address = id
     return templates.TemplateResponse(
         "main_page.html", context={"request": request, "address": address}
