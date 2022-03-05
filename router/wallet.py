@@ -13,7 +13,7 @@ templates = Jinja2Templates(directory="templates")
 
 
 # Make or update wallet
-@router.post(
+@router.get(
     "/run/{id}",
     summary="Make Reputation Wallet ",
     description="This API call function creates a wallet reputation for the specified address.",
