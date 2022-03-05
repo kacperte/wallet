@@ -9,7 +9,7 @@ from fastapi.staticfiles import StaticFiles
 
 router = APIRouter(prefix="/wallet", tags=["wallet"])
 templates = Jinja2Templates(directory="templates")
-router.mount("/static", StaticFiles(directory="static"), name="static")
+# router.mount("/static", StaticFiles(directory="static"), name="static")
 
 
 # Make or update wallet
