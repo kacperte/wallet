@@ -11,7 +11,7 @@ app.include_router(scraper.router)
 templates = Jinja2Templates(directory="templates")
 
 
-@app.get("/")
+@app.get("/{id}")
 def index(request: Request, id: str = Form(...)):
     return templates.TemplateResponse("main_page.html", context={"request": request})
 
