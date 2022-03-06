@@ -11,9 +11,16 @@ app.include_router(scraper.router)
 templates = Jinja2Templates(directory="templates")
 
 
-@app.get("/{id}")
-def index(request: Request, id: str = Form(...)):
+@app.get("/")
+def index(request: Request):
     return templates.TemplateResponse("main_page.html", context={"request": request})
+
+
+@app.post("/submit")
+async def submit_form(request: Request, address: str = Form(...)):
+    return templates.TemplateResponse(
+        "main_page.html", context={"request": request, "result": address}
+    )
 
 
 models.Base.metadata.create_all(engine)

@@ -9,18 +9,17 @@
     <title>Main Page</title>
   </head>
   <body>
-    <form method="get">
+    <form method="post" action="/submit" enctype="multipart/form-data">
       <center>
       <div class="form-group col-lg-4">
         <label for="walletAdress">Natluk Coin Reputation Wallet</label>
-        <input type="text" class="form-control" id="walletAdress" aria-describedby="walletlHelp"
-               placeholder="Wallet address" style="text-align: center" name="id">
+        <input type="text" class="form-control" name="address" placeholder="Wallet address" style="text-align: center">
       </div>
       </center>
       <center>
         <a class="btn btn-primary" type="submit" role="button"
-           href="https://wallet-reputation.herokuapp.com/wallet/{{ id }}">Check Wallet</a>
+           href="https://wallet-reputation.herokuapp.com/wallet/{{ address }}">Check Wallet</a>
         <a class="btn btn-primary" type="submit" role="button"
-           href="https://wallet-reputation.herokuapp.com/wallet/run/{{ id }}">Create Wallet</a>
+           href="https://wallet-reputation.herokuapp.com/wallet/run/{{ address }}">Create Wallet</a>
       </center>
 </html>
