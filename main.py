@@ -13,13 +13,16 @@ templates = Jinja2Templates(directory="templates")
 
 @app.get("/")
 def index(request: Request):
-    return templates.TemplateResponse("main_page.html", context={"request": request})
+    address = ""
+    return templates.TemplateResponse(
+        "main_page.html", context={"request": request, "address": address}
+    )
 
 
-@app.post("/submit")
+@app.post("/")
 async def submit_form(request: Request, address: str = Form(...)):
     return templates.TemplateResponse(
-        "main_page.html", context={"request": request, "result": address}
+        "main_page.html", context={"request": request, "address": address}
     )
 
 
