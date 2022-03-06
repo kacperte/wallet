@@ -21,6 +21,7 @@ def index(request: Request):
 
 @app.post("/")
 async def submit_form(request: Request, address: str = Form(...)):
+    result = address
     print(address)
     return templates.TemplateResponse(
         "main_page.html", context={"request": request, "address": address}
