@@ -8,9 +8,6 @@
     <script src="jquery-3.5.1.min.js"></script>
     <title>Wallet Reputation</title>
   </head>
-  <script>
-  var value = document.getElementById('address').value;
-  </script>
   <body>
     <form method="post" action="/" enctype="multipart/form-data">
       <center>
@@ -18,7 +15,10 @@
         <label for="address">Natluk Coin Reputation Wallet</label>
         <input type="text" class="form-control" name="address" id="address" placeholder="Wallet address" style="text-align: center">
       </div>
-
+    </form>
+    <script>
+        var value = document.getElementById('address').value;
+    </script>
       </center>
       <center>
         <input type="submit" value="Dodaj portel">
@@ -27,4 +27,5 @@
         <a class="btn btn-primary" type="submit" role="button"
            href="https://wallet-reputation.herokuapp.com/wallet/run/{ value }">Create Wallet</a>
       </center>
+  </body>
 </html>
