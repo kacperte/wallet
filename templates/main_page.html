@@ -7,8 +7,10 @@
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <script>
         var value = document.getElementById("addressWallet").value;
-        document.links["check"].href += value;
-        document.links["run"].href += value;
+        var valueForCheck = document.links["check"].href += value;
+        var valueForRun= document.links["run"].href += value;
+        document.getElementById("check").setAttribute("href",valueForCheck);
+        document.getElementById("run").setAttribute("href",valueForRun);
     </script>
     <title>Wallet Reputation</title>
   </head>
