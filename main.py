@@ -16,11 +16,4 @@ def index(request: Request):
     return templates.TemplateResponse("main_page.html", context={"request": request})
 
 
-@app.post("/")
-async def submit_form(request: Request, address: str = Form(...)):
-    return templates.TemplateResponse(
-        "main_page.html", context={"request": request, "address": address}
-    )
-
-
 models.Base.metadata.create_all(engine)
