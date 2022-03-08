@@ -5,10 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <script src="jquery-3.5.1.min.js"></script>
-    <script>
-        var value = "aa";
-    </script>
     <title>Wallet Reputation</title>
   </head>
   <body>
@@ -22,10 +18,10 @@
     </form>
       </center>
       <center>
-        <a class="btn btn-primary" type="submit" role="button"
-           href="https://wallet-reputation.herokuapp.com/wallet/{value}">Check Wallet</a>
-        <a class="btn btn-primary" type="submit" role="button"
-           href="https://wallet-reputation.herokuapp.com/wallet/run/{value}">Create Wallet</a>
+        <a class="btn btn-primary" type="submit" role="button" href="javascript:;"
+           onclick="this.href='ttps://wallet-reputation.herokuapp.com/wallet/' + document.getElementById('addressWallet').value">Check Wallet</a>
+        <a class="btn btn-primary" type="submit" role="button" href="javascript:;"
+           onclick="this.href='ttps://wallet-reputation.herokuapp.com/wallet/run/' + document.getElementById('addressWallet').value">Create Wallet</a>
       </center>
   </body>
 </html>
