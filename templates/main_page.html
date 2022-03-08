@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script>
+        var value = document.getElementById("addressWallet").value;
+        document.links["check"].href += value;
+        document.links["run"].href += value;
+    </script>
     <title>Wallet Reputation</title>
   </head>
   <body>
@@ -18,10 +23,8 @@
     </form>
       </center>
       <center>
-        <a class="btn btn-primary" type="submit" role="button" href="javascript:;"
-           onclick="this.href='ttps://wallet-reputation.herokuapp.com/wallet/' + document.getElementById('addressWallet').value">Check Wallet</a>
-        <a class="btn btn-primary" type="submit" role="button" href="javascript:;"
-           onclick="this.href='ttps://wallet-reputation.herokuapp.com/wallet/run/' + document.getElementById('addressWallet').value">Create Wallet</a>
+        <a class="btn btn-primary" id="check" type="submit" role="button" href="">Check Wallet</a>
+        <a class="btn btn-primary" id="run" type="submit" role="button" href="">Create Wallet</a>
       </center>
   </body>
 </html>
