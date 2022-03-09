@@ -1,3 +1,5 @@
+import json
+
 from fastapi import APIRouter, Depends, Request
 from schemas import WalletBase
 from sqlalchemy.orm.session import Session
@@ -48,4 +50,4 @@ def get_wallet_info(request: Request, id: str, db: Session = Depends(get_db)):
     :return: json
     """
     result = get_wallet(db, id)
-    return JSONResponse(content=result)
+    return JSONResponse(content=json.dumps(result))
