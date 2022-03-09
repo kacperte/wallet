@@ -12,17 +12,18 @@ app.include_router(scraper.router)
 templates = Jinja2Templates(directory="templates/")
 
 
-@app.get("/form")
-def form_post(request: Request):
-    result = "Type a number"
+@app.get("/")
+def wallet_view(request: Request):
+    result = "Type a address"
     return templates.TemplateResponse(
         "main_page.html", context={"request": request, "result": result}
     )
 
 
-@app.post("/form")
-def form_post(request: Request, num: int = Form(...)):
-    result = num
+@app.post("/")
+def wallet_view(request: Request, address: str = Form(...)):
+    URL = "https://wallet-reputation.herokuapp.com/wallet/"
+    result = URL + address
     return templates.TemplateResponse(
         "main_page.html", context={"request": request, "result": result}
     )
