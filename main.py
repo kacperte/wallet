@@ -16,7 +16,7 @@ templates = Jinja2Templates(directory="templates/")
 def form_post(request: Request):
     result = "Type a number"
     return templates.TemplateResponse(
-        "form.html", context={"request": request, "result": result}
+        "main_page.html", context={"request": request, "result": result}
     )
 
 
@@ -24,7 +24,7 @@ def form_post(request: Request):
 def form_post(request: Request, num: int = Form(...)):
     result = num
     return templates.TemplateResponse(
-        "form.html", context={"request": request, "result": result}
+        "main_page.html", context={"request": request, "result": result}
     )
 
 
