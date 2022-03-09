@@ -14,7 +14,7 @@ templates = Jinja2Templates(directory="templates/")
 
 @app.get("/main")
 def index(request: Request):
-    result = ""
+    result = "whateva"
     return templates.TemplateResponse(
         "main_page.html", context={"request": request, "result": result}
     )
@@ -23,8 +23,7 @@ def index(request: Request):
 @app.post("/main")
 def index(request: Request, address: str = Form(...)):
     URL = "https://wallet-reputation.herokuapp.com/wallet/"
-    result = requests.get(URL + address).content
-    print(result)
+    result = address
     return templates.TemplateResponse(
         "main_page.html", context={"request": request, "result": result}
     )
