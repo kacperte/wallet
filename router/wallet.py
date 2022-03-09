@@ -1,18 +1,11 @@
-import json
-
 from fastapi import APIRouter, Depends, Request
 from schemas import WalletBase
 from sqlalchemy.orm.session import Session
 from db.database import get_db
 from db.db_wallet import get_wallet
 from tasks import wallet_reputation
-from fastapi.templating import Jinja2Templates
-from fastapi.staticfiles import StaticFiles
-from fastapi.responses import JSONResponse
 
 router = APIRouter(prefix="/wallet", tags=["wallet"])
-templates = Jinja2Templates(directory="templates")
-# router.mount("/static", StaticFiles(directory="static"), name="static")
 
 
 # Make or update wallet
@@ -50,4 +43,4 @@ def get_wallet_info(request: Request, id: str, db: Session = Depends(get_db)):
     :return: json
     """
     result = get_wallet(db, id)
-    return JSONResponse(content=json.dumps(result))
+    return result
