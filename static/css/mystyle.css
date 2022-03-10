@@ -14,17 +14,10 @@ body {
     font-size: x-large;
 }
 
-.col-md-4 {
+.col-md-2 {
     background-color: #e3e3e3;
-}
-
-.col-md-4 {
-    border-radius: 15px 15px 15px 15px;
+    order-radius: 15px 15px 15px 15px;
     margin-right: 50px;
-}
-
-.col-md-4 {
-    border-radius: 0 15px 15px 0;
 }
 
 .label-1 {
