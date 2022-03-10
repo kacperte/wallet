@@ -1,6 +1,5 @@
 body {
-    background: rgb(69,67,68);
-    background: linear-gradient(90deg, rgba(69,67,68,1) 0%, rgba(164,159,159,1) 35%, rgba(68,64,64,1) 100%);
+    background-color: #f4eec4;
 }
 
 .row {
@@ -14,10 +13,16 @@ body {
     font-size: x-large;
 }
 
-.col-md-2 {
-    background-color: #d2d2d4;
-    order-radius: 15px;
-    margin-right: 50px;
+.a-1,.b-1,.c-1{
+    background-color: #ee6e1cb;
+}
+
+.a-1 {
+    border-radius: 15px 0 0 15px;
+}
+
+.c-1 {
+    border-radius: 0 15px 15px 0;
 }
 
 .label-1 {
