@@ -1,3 +1,8 @@
+body {
+    background: rgb(69,67,68);
+    background: linear-gradient(90deg, rgba(69,67,68,1) 0%, rgba(164,159,159,1) 35%, rgba(68,64,64,1) 100%);
+}
+
 .row {
     padding: 100px;
 }
@@ -9,12 +14,8 @@
     font-size: x-large;
 }
 
-.col-md-4,.col-md-2 {
+.col-md-4,.col-md-2, .col-md-6 {
     background-color: #e3e3e3;
-}
-
-.col-md-6 {
-    background-color: #f5f3f3;
 }
 
 .col-md-4 {
@@ -29,7 +30,4 @@
     font-size: x-large;
 }
 
-body {
-    background: rgb(36,0,12);
-    background: linear-gradient(90deg, rgba(36,0,12,1) 0%, rgba(79,71,25,1) 35%, rgba(0,212,255,1) 100%);
-}
+
