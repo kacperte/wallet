@@ -13,6 +13,7 @@ body {
     padding-top: 25px;
     font-size: x-large;
     justify-self: center;
+    order-radius: 15px;
 }
 
 .col-md-2 {
