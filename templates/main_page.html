@@ -24,15 +24,15 @@
     <p align="center">Result: {{ result }}</p>
     <div class="row">
         <div class="col-md-4 row-height">
-            <span>{{ result["nc_balance"] }}</span>
+            {{ result["nc_balance"] }}
         </div>
 
-        <div class="col-md-6 row-height">
-        {{ result["lp_balance"] }}
+        <div class="col-md-4 row-height">
+            {{ result["lp_balance"] }}
         </div>
 
-        <div class="col-md-2 row-height">
-        col-md-2
+        <div class="col-md-4 row-height">
+            {{ result["time_in_nc"] }}
         </div>
     </div>
 
