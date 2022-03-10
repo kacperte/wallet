@@ -1,5 +1,4 @@
-import json
-
+from fastapi.staticfiles import StaticFiles
 from fastapi import FastAPI, Request, Form
 from db import models
 from db.database import engine
@@ -12,6 +11,7 @@ app = FastAPI()
 app.include_router(wallet.router)
 app.include_router(scraper.router)
 templates = Jinja2Templates(directory="templates/")
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
 @app.get("/")
