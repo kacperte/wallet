@@ -17,7 +17,7 @@ body {
 
 .col-md-2 {
     background-color: #d2d2d4;
-    order-radius: 15px 15px 15px 15px;
+    order-radius: 15px;
     margin-right: 50px;
 }
 
