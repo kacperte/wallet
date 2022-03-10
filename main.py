@@ -1,3 +1,5 @@
+import json
+
 from fastapi import FastAPI, Request, Form
 from db import models
 from db.database import engine
@@ -24,6 +26,9 @@ def wallet_view(request: Request):
 def wallet_view(request: Request, address: str = Form(...)):
     URL = "https://wallet-reputation.herokuapp.com/wallet/"
     result = requests.get(URL + address).content
+    print(result)
+    result = json.dumps(result)
+    print(result)
     return templates.TemplateResponse(
         "main_page.html", context={"request": request, "result": result}
     )
