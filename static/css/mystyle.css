@@ -29,5 +29,7 @@
     font-size: x-large;
 }
 
-background: rgb(36,0,12);
-background: linear-gradient(90deg, rgba(36,0,12,1) 0%, rgba(79,71,25,1) 35%, rgba(0,212,255,1) 100%);
+body {
+    background: rgb(36,0,12);
+    background: linear-gradient(90deg, rgba(36,0,12,1) 0%, rgba(79,71,25,1) 35%, rgba(0,212,255,1) 100%);
+}
