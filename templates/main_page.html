@@ -8,40 +8,28 @@
     <title>Wallet Reputation</title>
 </head>
 <body>
-<form method="post">
-    <center>
-    <div class="form-group col-lg-4">
-    <label>Check your wallet reputation</label>
-    <input type="text" name="address" value="" class="form-control" placeholder="Wallet address"
-           style="text-align: center"/>
-    <br/>
-    <input type="submit" class="btn btn-primary">
-    </div>
-    </center>
-</form>
+    <form method="post">
+        <center>
+        <div class="form-group col-lg-4">
+        <label>Check your wallet reputation</label>
+        <input type="text" name="address" value="" class="form-control" placeholder="Wallet address"
+               style="text-align: center"/>
+        <br/>
+        <input type="submit" class="btn btn-primary">
+        </div>
+        </center>
+    </form>
 
-<p align="center">Result: {{ result }}</p>
-<div class="container">
-  <div class="row">
-    <div class="col">
-      1 of 2
+    <p align="center">Result: {{ result }}</p>
+    <div class="row">
+      <div class="col-sm-6 col-lg-8">.col-sm-6 .col-lg-8</div>
+      <div class="col-6 col-lg-4">.col-6 .col-lg-4</div>
     </div>
-    <div class="col">
-      2 of 2
+    <div class="row">
+      <div class="col-6 col-sm-4">.col-6 .col-sm-4</div>
+      <div class="col-6 col-sm-4">.col-6 .col-sm-4</div>
+      <div class="col-6 col-sm-4">.col-6 .col-sm-4</div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col">
-      1 of 3
-    </div>
-    <div class="col">
-      2 of 3
-    </div>
-    <div class="col">
-      3 of 3
-    </div>
-  </div>
-</div>
 
 </body>
 </html>
