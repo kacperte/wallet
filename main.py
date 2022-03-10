@@ -25,8 +25,8 @@ def wallet_view(request: Request):
 @app.post("/")
 def wallet_view(request: Request, address: str = Form(...)):
     URL = "https://wallet-reputation.herokuapp.com/wallet/"
-    result = requests.get(URL + address).content
-    print(type(result))
+    result = requests.get(URL + address).json()
+
     return templates.TemplateResponse(
         "main_page.html", context={"request": request, "result": result}
     )
