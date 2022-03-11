@@ -1,4 +1,6 @@
-
+.label-1 {
+    font-size: x-large;
+}
 
 .row {
     padding: 100px;
@@ -9,22 +11,6 @@
     text-align: center;
     padding-top: 25px;
     font-size: x-large;
-}
-
-.col-md-4,.col-md-2,.col-md-6 {
     background-color: #ee6e1cb;
+    border-radius: 15px;
 }
-
-.col-md-4 {
-    border-radius: 15px 0 0 15px;
-}
-
-.col-md-2 {
-    border-radius: 0 15px 15px 0;
-}
-
-.label-1 {
-    font-size: x-large;
-}
-
-
