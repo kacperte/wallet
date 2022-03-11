@@ -22,13 +22,13 @@ body {
     font-size: x-large;
 }
 
-#head-1a {
+#head-1a,#head-2a,#head-3a  {
     font-size: small;
     color: #878b8b
     font-weight: bold;
 }
 
-#info-1a {
+#info-1a,#info-2a,#info-3a {
     font-size: medium;
     font-weight: bold;
 }
