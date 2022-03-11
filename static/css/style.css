@@ -1,3 +1,7 @@
+body {
+    background-color: #F6F6F6;
+    }
+
 .row {
     padding: 100px;
 }
@@ -9,7 +13,7 @@
 }
 
 #row-a-1,#row-a-2,#row-a-3 {
-    background-color: #f5eec2;
+    background-color: ##FFFFFF;
     margin-right: 60px;
     border-radius: 15px;
 }
