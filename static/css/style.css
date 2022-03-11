@@ -3,7 +3,7 @@
 }
 
 .row-height {
-    height: 60px;
+    height: 80px;
     text-align: center;
     padding-top: 5px;
 }
@@ -20,7 +20,8 @@
 
 #head-1a {
     font-size: small;
-    color: #b3b5b6
+    color: #878b8b
+    font-weight: bold;
 }
 
 #info-1a {
