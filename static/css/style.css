@@ -9,7 +9,7 @@
 }
 
 #row-a-1,#row-a-2,#row-a-3 {
-    background-color: #f5eec2;
+    background-color: ##F6F6F6;
     margin-right: 60px;
     border-radius: 15px;
 }
@@ -18,13 +18,13 @@
     font-size: x-large;
 }
 
-#head-1a {
+#head-1a,#head-2a,#head-3a  {
     font-size: small;
     color: #878b8b
     font-weight: bold;
 }
 
-#info-1a {
+#info-1a,#info-2a,#info-3a {
     font-size: medium;
     font-weight: bold;
 }
