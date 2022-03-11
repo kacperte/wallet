@@ -4,6 +4,9 @@
     text-align: center;
     padding-top: 25px;
     font-size: x-large;
+}
+
+.col-sm {
     background-color: #ee6e1cb;
     border-radius: 15px;
 }
