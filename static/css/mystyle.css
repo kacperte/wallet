@@ -2,7 +2,7 @@ body {
     background-color: #F6F6F6;
 }
 
-#row-1,#row-2,#row-3,#row-4,#row-5,#row-6 {
+#row-1,#row-2,#row-3,#row-4,#row-5,#row-6,#row-7 {
     padding: 5px;
 }
 
@@ -23,7 +23,7 @@ body {
     border-radius: 15px;
 }
 
-#row-b-1,#row-c-1,#row-d-1,#row-e-1,#row-f-1 {
+#row-b-1,#row-c-1,#row-d-1,#row-e-1,#row-f-1,#row-g-1 {
     background-color: #FFFFFF;
     border-radius: 15px;
 }
@@ -109,6 +109,18 @@ body {
 }
 
 #info-8 {
+    font-size: large;
+    padding-left: 310px;
+    color: #9EA3B2;
+}
+
+#head-9 {
+    font-size: large;
+    text-align: left;
+    color: #9EA3B2;
+}
+
+#info-9 {
     font-size: large;
     padding-left: 310px;
     color: #9EA3B2;
