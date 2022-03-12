@@ -19,7 +19,7 @@ body {
 
 #row-a-1,#row-a-2,#row-a-3 {
     background-color: #FFFFFF;
-    margin-right: 80px;
+    margin-right: 83px;
     border-radius: 15px;
 }
 
@@ -50,13 +50,13 @@ body {
 }
 
 #head-4 {
-    font-size: large;
+    font-size: x-large;
     text-align: left;
     color: #9EA3B2;
 }
 
 #info-4 {
-    font-size: large;
-    padding-left: 200px;
+    font-size: x-large;
+    padding-left: 500px;
     color: #9EA3B2;
 }
