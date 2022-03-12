@@ -3,12 +3,18 @@ body {
 }
 
 #row-1, #row-2 {
-    padding: 20px;
+    padding: 10px;
 }
 
-.row-height {
+.row-height-1 {
     height: 70px;
     text-align: center;
+    padding-top: 5px;
+}
+
+.row-height-2 {
+    height: 50px;
+    text-align: left;
     padding-top: 5px;
 }
 
