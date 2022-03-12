@@ -9,7 +9,7 @@
 }
 
 #row-a-1,#row-a-2,#row-a-3 {
-    background-color: #F6F6F6;
+    background-color: #FFFFFF;
     margin-right: 60px;
     border-radius: 15px;
 }
@@ -27,4 +27,8 @@
 #info-1a,#info-2a,#info-3a {
     font-size: medium;
     font-weight: bold;
+}
+
+background {
+    color: #F6F6F6;
 }
