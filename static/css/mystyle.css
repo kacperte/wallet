@@ -1,9 +1,9 @@
-                              body {
+body {
     background-color: #F6F6F6;
 }
 
-.row-1 {
-    padding: 100px;
+.row {
+    padding: 40px;
 }
 
 .row-height {
@@ -14,7 +14,7 @@
 
 #row-a-1,#row-a-2,#row-a-3 {
     background-color: #FFFFFF;
-    margin-right: 60px;
+    margin-right: 30px;
     border-radius: 15px;
 }
 
