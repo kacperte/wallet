@@ -17,9 +17,14 @@ body {
     padding-top: 5px;
 }
 
-#row-a-1,#row-a-2,#row-a-3,#row-b-1 {
+#row-a-1,#row-a-2,#row-a-3 {
     background-color: #FFFFFF;
-    margin-right: 78px;
+    margin-right: 76px;
+    border-radius: 15px;
+}
+
+#row-b-1 {
+    background-color: #FFFFFF;
     border-radius: 15px;
 }
 
@@ -45,13 +50,13 @@ body {
 }
 
 #head-4 {
-    font-size: medium;
+    font-size: large;
     text-align: left;
     color: #9EA3B2;
 }
 
 #info-4 {
-    font-size: medium;
-    text-align: right;
+    font-size: large;
+    padding-left: 50px;
     color: #9EA3B2;
 }
