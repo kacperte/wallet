@@ -20,7 +20,7 @@ body {
 
 #row-a-1,#row-a-2,#row-a-3,#row-b-1 {
     background-color: #FFFFFF;
-    margin-right: 70px;
+    margin-right: 80px;
     border-radius: 15px;
 }
 
@@ -43,4 +43,14 @@ body {
     font-size: large;
     text-align: center;
      padding: 40px;
+}
+
+#head-4 {
+    font-size: medium;
+    text-align: left;
+}
+
+#info-4 {
+    font-size: medium;
+    text-align: right;
 }
