@@ -19,7 +19,7 @@ body {
 
 #row-a-1,#row-a-2,#row-a-3 {
     background-color: #FFFFFF;
-    margin-right: 83px;
+    margin-right: 85px;
     border-radius: 15px;
 }
 
@@ -46,7 +46,7 @@ body {
 .address-info {
     font-size: large;
     text-align: center;
-     padding: 40px;
+     padding: 30px;
 }
 
 #head-4 {
@@ -57,6 +57,6 @@ body {
 
 #info-4 {
     font-size: large;
-    padding-left: 400px;
+    padding-left: 430px;
     color: #9EA3B2;
 }
