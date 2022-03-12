@@ -3,7 +3,7 @@ body {
 }
 
 #row-1, #row-2 {
-    padding: 10px;
+    padding: 20px;
 }
 
 .row-height-1 {
@@ -20,7 +20,7 @@ body {
 
 #row-a-1,#row-a-2,#row-a-3,#row-b-1 {
     background-color: #FFFFFF;
-    margin-right: 60px;
+    margin-right: 70px;
     border-radius: 15px;
 }
 
