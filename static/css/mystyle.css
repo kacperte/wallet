@@ -2,7 +2,7 @@ body {
     background-color: #F6F6F6;
 }
 
-#row-1, #row-2 {
+#row-1,#row-2,#row-3 {
     padding: 20px;
 }
 
@@ -23,7 +23,7 @@ body {
     border-radius: 15px;
 }
 
-#row-b-1 {
+#row-b-1, #row-c-1 {
     background-color: #FFFFFF;
     border-radius: 15px;
 }
@@ -58,5 +58,17 @@ body {
 #info-4 {
     font-size: large;
     padding-left: 430px;
+    color: #9EA3B2;
+}
+
+#head-5 {
+    font-size: large;
+    text-align: left;
+    color: #9EA3B2;
+}
+
+#info-5 {
+    font-size: large;
+    padding-left: 450px;
     color: #9EA3B2;
 }
