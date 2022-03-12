@@ -20,7 +20,7 @@
 
 #head-1a,#head-2a,#head-3a  {
     font-size: small;
-    color: #878b8b
+    color: #99baDD;
     font-weight: bold;
 }
 
@@ -30,5 +30,5 @@
 }
 
 body {
-    background-color:: #F6F6F6;
+    background-color: #F6F6F6;
 }
