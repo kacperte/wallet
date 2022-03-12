@@ -19,7 +19,7 @@ body {
 
 #row-a-1,#row-a-2,#row-a-3 {
     background-color: #FFFFFF;
-    margin-right: 76px;
+    margin-right: 80px;
     border-radius: 15px;
 }
 
@@ -57,6 +57,6 @@ body {
 
 #info-4 {
     font-size: large;
-    padding-left: 50px;
+    padding-left: 200px;
     color: #9EA3B2;
 }
