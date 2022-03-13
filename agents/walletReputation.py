@@ -13,7 +13,7 @@ from collections import namedtuple
 session = SessionLocal()
 
 # Create namedtuple
-PaperHand = namedtuple("PaperHand", "result paper_hand")
+PaperHand = namedtuple("PaperHand", "result paper_hand quantity")
 LP = namedtuple("LP", "balance add_lp_list added add_lp remove_lp")
 YF = namedtuple("YF", "balance yf_plus yf_minus added")
 
@@ -118,10 +118,17 @@ class WalletReputation:
     def paper_hand(self):
         # Check if address whenever has sold NC -> create list with txn hash
         paper_hand = [row.txn_hash for row in paper_hand_generator(self.address)]
-        # join txn hash list to str seperate with comma
+
+        # Check how many NC wallet sold
+        quantity = paper_hand = [
+            row.quantity for row in paper_hand_generator(self.address)
+        ]
+        quantity = round(sum(quantity), 5)
+
+        # Join txn hash list to str seperate with comma
         result = ",".join(paper_hand)
         paper_hand = bool(result)
-        return PaperHand(result, paper_hand)
+        return PaperHand(result, paper_hand, quantity)
 
     def lp_balance(self):
         # List with number of added LPs
@@ -196,6 +203,46 @@ class WalletReputation:
         add_to_yf = bool(plus_trans)
         return YF(yf_balance, plus_trans, minus_trans, add_to_yf)
 
+    def rank(self):
+        paper_hands = self.paper_hand().paper_hand
+        add_to_yf = self.yf_balance().added
+        have_lp = self.lp_balance().balance
+        how_much_sell = self.paper_hand().quantity
+
+        # Wallet rank conditions
+        condition_DH = not paper_hands and add_to_yf and have_lp > 0
+        condition_DH2 = (
+            paper_hands and add_to_yf and have_lp > 0 and how_much_sell <= 50000
+        )
+        condition_DH2a = (
+            paper_hands and add_to_yf and have_lp > 0 and how_much_sell > 50000
+        )
+        condition_DH3 = not paper_hands and have_lp > 0
+        condition_DH4 = paper_hands and have_lp > 0 and how_much_sell <= 50000
+        condition_DH4a = paper_hands and have_lp > 0 and how_much_sell > 50000
+
+        wallet_rank = ""
+
+        if condition_DH:
+            wallet_rank = "Diamond Hands"
+
+        if condition_DH2:
+            wallet_rank = "Diamond Hands2"
+
+        if condition_DH2a:
+            wallet_rank = "Diamond Hands2a"
+
+        if condition_DH3:
+            wallet_rank = "Diamond Hands3"
+
+        if condition_DH4:
+            wallet_rank = "Diamond Hands4"
+
+        if condition_DH4a:
+            wallet_rank = "Diamond Hands4a"
+
+        return wallet_rank
+
     def add_reputation_to_db(self):
         # Check if address exists
         query = self.session.query(DbNcTransaction).filter(
@@ -216,6 +263,7 @@ class WalletReputation:
             nc_balance=self.nc_balance(),
             claim_balance=self.claim_balance(),
             add_to_yf=self.yf_balance().added,
+            wallet_rank=self.rank(),
         )
 
         # Check if wallet is already in db

@@ -12,6 +12,7 @@ class WalletBase(BaseModel):
     nc_balance: int = None
     claim_balance: int = None
     add_to_yf: bool = False
+    rank: str = None
 
     class Config:
         orm_mode = True
