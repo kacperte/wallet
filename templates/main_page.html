@@ -9,12 +9,17 @@
         <title>Wallet Reputation</title>
     </head>
     <body>
+        <script type="text/javascript">
+            function showDiv(toggle){
+            document.getElementById(toggle).style.display = 'block';
+            }
+        </script>
         <form method="post">
             <center>
             <div class="form-group col-lg-4">
             <label class="label-1">Check your wallet reputation</label>
             <input type="text" name="address" value="" class="form-control" placeholder="Wallet address"
-                   style="text-align: center"/>
+                   style="text-align: center" onclick="showDiv('container')"/>
             <br/>
             <input type="submit" class="btn btn-primary">
             </div>
@@ -23,6 +28,7 @@
         <div class="address-info">
             <b>{{ result.adress }}</b>
         </div>
+
         <div class="container">
             <div id="row-1" class="row">
                 <div id="row-a-1" class="col-md-3 row-height-1">
