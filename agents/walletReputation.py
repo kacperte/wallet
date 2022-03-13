@@ -219,7 +219,7 @@ class WalletReputation:
         condition_DH4 = paper_hands and have_lp > 0 and how_much_sell <= 50000
         condition_DH4a = paper_hands and have_lp > 0 and how_much_sell > 50000
 
-        wallet_rank = ""
+        wallet_rank = "Diamond Hands5"
 
         if condition_DH:
             wallet_rank = "Diamond Hands"
