@@ -120,9 +120,7 @@ class WalletReputation:
         paper_hand = [row.txn_hash for row in paper_hand_generator(self.address)]
 
         # Check how many NC wallet sold
-        quantity = paper_hand = [
-            row.quantity for row in paper_hand_generator(self.address)
-        ]
+        quantity = [row.quantity for row in paper_hand_generator(self.address)]
         quantity = round(sum(quantity), 5)
 
         # Join txn hash list to str seperate with comma
