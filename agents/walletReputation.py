@@ -223,20 +223,15 @@ class WalletReputation:
 
         if condition_DH:
             wallet_rank = "Diamond Hands"
-
-        if condition_DH2:
+        elif condition_DH2:
             wallet_rank = "Diamond Hands2"
-
-        if condition_DH2a:
+        elif condition_DH2a:
             wallet_rank = "Diamond Hands2a"
-
-        if condition_DH3:
+        elif condition_DH3:
             wallet_rank = "Diamond Hands3"
-
-        if condition_DH4:
+        elif condition_DH4:
             wallet_rank = "Diamond Hands4"
-
-        if condition_DH4a:
+        elif condition_DH4a:
             wallet_rank = "Diamond Hands4a"
 
         return wallet_rank
