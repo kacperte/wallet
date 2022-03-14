@@ -302,5 +302,6 @@ class WalletReputation:
     @staticmethod
     def all_addresses():
         addresses_list = [row.to for row in all_addresses_generator()]
+        addresses_list = list(set(addresses_list))
 
         return addresses_list
