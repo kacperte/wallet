@@ -40,6 +40,7 @@ async def create_or_update_all():
     :return: status info
     """
     addresses_list = walletReputation.WalletReputation().all_addresses()
+    print(addresses_list)
     for id in addresses_list:
         wallet_reputation.delay(id)
 
