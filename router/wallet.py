@@ -4,6 +4,7 @@ from sqlalchemy.orm.session import Session
 from db.database import get_db
 from db.db_wallet import get_wallet
 from tasks import wallet_reputation
+from agents import walletReputation
 
 router = APIRouter(prefix="/wallet", tags=["wallet"])
 
@@ -21,6 +22,8 @@ async def create_or_update_database(id: str):
     :param id: wallet adress
     :return: status info
     """
+    ins = walletReputation.WalletReputation(address=id)
+    print(ins.all_addresses())
     wallet_reputation.delay(id)
 
     return {"Status": "Task successfully add to execute"}

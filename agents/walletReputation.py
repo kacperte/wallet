@@ -88,6 +88,11 @@ def yf_balance_minus_generator(address: str):
         yield row
 
 
+def all_addresses_generator():
+    for row in session.query(DbNcTransaction).all():
+        yield row
+
+
 class WalletReputation:
     """
     Class responsible for creating, updating and adding to the wallet reputation database.
@@ -293,3 +298,9 @@ class WalletReputation:
         d1 = datetime.strptime(d1, "%Y-%m-%d")
         d2 = datetime.strptime(d2, "%Y-%m-%d")
         return abs((d2 - d1).days)
+
+    @staticmethod
+    def all_addresses():
+        addresses_list = [row.to for row in all_addresses_generator()]
+
+        return addresses_list
