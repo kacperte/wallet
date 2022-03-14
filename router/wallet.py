@@ -9,22 +9,39 @@ from agents import walletReputation
 router = APIRouter(prefix="/wallet", tags=["wallet"])
 
 
-# Make or update wallet
+# Make or update one wallet
 @router.get(
     "/run/{id}",
     summary="Make Reputation Wallet ",
     description="This API call function creates a wallet reputation for the specified address.",
     response_description="Message with status",
 )
-async def create_or_update_database(id: str):
+async def create_or_update(id: str):
     """
 
     :param id: wallet adress
     :return: status info
     """
-    ins = walletReputation.WalletReputation(address=id)
-    print(ins.all_addresses())
     wallet_reputation.delay(id)
+
+    return {"Status": "Task successfully add to execute"}
+
+
+# Make or update all wallets
+@router.get(
+    "/run/all",
+    summary="Make Reputation Wallet for all addresses ",
+    description="This API call function creates a wallet reputation for the every address.",
+    response_description="Message with status",
+)
+async def create_or_update_all():
+    """
+
+    :return: status info
+    """
+    addresses_list = walletReputation.WalletReputation()
+    for id in addresses_list:
+        wallet_reputation.delay(id)
 
     return {"Status": "Task successfully add to execute"}
 
