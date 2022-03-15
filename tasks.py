@@ -44,7 +44,7 @@ def wallet_reputation(id: str):
 
 @app.task(name="walletReputationAll")
 def wallet_reputation_all():
-    for address in all_addresses_generator:
+    for address in all_addresses_generator():
         WalletReputation(address).add_reputation_to_db()
 
     return {"message": "Success"}

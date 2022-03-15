@@ -9,7 +9,7 @@ router = APIRouter(prefix="/wallet", tags=["wallet"])
 
 
 # Make or update one wallet
-@router.get(
+@router.post(
     "/run/{id}",
     summary="Make Reputation Wallet ",
     description="This API call function creates a wallet reputation for the specified address.",
