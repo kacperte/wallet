@@ -4,7 +4,7 @@ from sqlalchemy.orm.session import Session
 from db.database import get_db
 from db.db_wallet import get_wallet
 from tasks import wallet_reputation
-from agents import walletReputation
+from agents.walletReputation import WalletReputation
 
 router = APIRouter(prefix="/wallet", tags=["wallet"])
 
@@ -22,27 +22,9 @@ async def create_or_update(id: str):
     :param id: wallet adress
     :return: status info
     """
-    wallet_reputation.delay(id)
-
-    return {"Status": "Task successfully add to execute"}
-
-
-# Make or update all wallets
-@router.get(
-    "/run/all",
-    summary="Make Reputation Wallet for all addresses ",
-    description="This API call function creates a wallet reputation for the every address.",
-    response_description="Message with status",
-)
-async def create_or_update_all():
-    """
-
-    :return: status info
-    """
-    addresses_list = walletReputation.WalletReputation().all_addresses()
+    addresses_list = WalletReputation().all_addresses()
     print(addresses_list)
-    for id in addresses_list:
-        wallet_reputation.delay(id)
+    wallet_reputation.delay(id)
 
     return {"Status": "Task successfully add to execute"}
 
