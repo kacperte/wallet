@@ -23,7 +23,8 @@ async def create_or_update(id: str):
     :return: status info
     """
     addresses_list = WalletReputation().all_addresses()
-    print(addresses_list)
+    for _ in addresses_list:
+        print(_)
     wallet_reputation.delay(id)
 
     return {"Status": "Task successfully add to execute"}
