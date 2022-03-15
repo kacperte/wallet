@@ -43,7 +43,7 @@ def wallet_reputation(id: str):
 
 
 @app.task(name="walletReputationAll")
-def wallet_reputation_all(adr_list: list):
+def wallet_reputation_all(adr_list):
     print(adr_list)
     for address in adr_list:
         WalletReputation(address).add_reputation_to_db()
