@@ -241,7 +241,7 @@ class WalletReputation:
 
         return wallet_rank
 
-    def add_reputation_to_db(self):
+    def add_reputation_to_db(self) -> object:
         # Check if address exists
         query = self.session.query(DbNcTransaction).filter(
             DbNcTransaction.to == self.address
