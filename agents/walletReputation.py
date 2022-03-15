@@ -298,10 +298,3 @@ class WalletReputation:
         d1 = datetime.strptime(d1, "%Y-%m-%d")
         d2 = datetime.strptime(d2, "%Y-%m-%d")
         return abs((d2 - d1).days)
-
-    @staticmethod
-    def all_addresses():
-        addresses_list = [row.to for row in all_addresses_generator()]
-        addresses_list = list(set(addresses_list))
-
-        return addresses_list

@@ -1,7 +1,7 @@
 from celery import Celery
 import os
 from agents.polygonScraper import PolygonscanScraper
-from agents.walletReputation import WalletReputation
+from agents.walletReputation import WalletReputation, all_addresses_generator
 
 app = Celery("queue")
 
@@ -43,9 +43,8 @@ def wallet_reputation(id: str):
 
 
 @app.task(name="walletReputationAll")
-def wallet_reputation_all(adr_list):
-    print(adr_list)
-    for address in adr_list:
+def wallet_reputation_all():
+    for address in all_addresses_generator:
         WalletReputation(address).add_reputation_to_db()
 
     return {"message": "Success"}
