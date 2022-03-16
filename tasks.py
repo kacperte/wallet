@@ -46,5 +46,6 @@ def wallet_reputation(id: str):
 def wallet_reputation_all():
     for address in all_addresses_generator():
         WalletReputation(address).add_reputation_to_db()
+        print("aaa")
 
     return {"message": "Success"}
