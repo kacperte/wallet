@@ -14,7 +14,7 @@ templates = Jinja2Templates(directory="templates/")
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
-@app.get("/")
+@app.get("/", tags=["view"])
 def wallet_view(request: Request):
     result = "Type a address"
     return templates.TemplateResponse(
@@ -22,7 +22,7 @@ def wallet_view(request: Request):
     )
 
 
-@app.post("/")
+@app.post("/", tags=["view"])
 def wallet_view(request: Request, address: str = Form(...)):
     URL = "https://wallet-reputation.herokuapp.com/wallet/"
     result = requests.get(URL + address).json()
