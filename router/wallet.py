@@ -27,7 +27,7 @@ async def create_or_update(id: str):
 
 
 # Make or update all wallets
-@router.post(
+@router.get(
     "/run/all",
     summary="Make Reputation Wallet ",
     description="This API call function creates a wallet reputation for the all addresses.",
