@@ -23,6 +23,7 @@ async def create_or_update(id: str):
     :param id: wallet adress
     :return: status info
     """
+    print("OK")
     wallet_reputation.delay(id)
 
     return {"Status": "Task successfully add to execute"}
