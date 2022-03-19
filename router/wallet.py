@@ -41,10 +41,8 @@ async def create_or_update_all():
     :return: status info
     """
     address_list = {address.to for address in all_addresses_generator()}
-    print(address_list)
-    print(len(address_list))
-    # action_chain = group([wallet_reputation.s(id) for id in address_list])
-    # action_chain()
+    action_chain = group([wallet_reputation.s(id) for id in address_list])
+    action_chain()
 
     return {"Status": "Tasks successfully add to execute"}
 
