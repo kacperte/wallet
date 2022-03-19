@@ -40,7 +40,7 @@ async def create_or_update_all():
 
     :return: status info
     """
-    address_list = [address for address in all_addresses_generator()]
+    address_list = [address.adress for address in all_addresses_generator()]
     print(address_list)
     # action_chain = group([wallet_reputation.s(id) for id in address_list])
     # action_chain()
