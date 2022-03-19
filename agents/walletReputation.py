@@ -90,7 +90,7 @@ def yf_balance_minus_generator(address: str):
 
 def all_addresses_generator():
     for row in session.query(DbNcTransaction).all():
-        yield row
+        yield row.to
 
 
 class WalletReputation:
