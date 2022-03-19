@@ -3,8 +3,9 @@ from schemas import WalletBase
 from sqlalchemy.orm.session import Session
 from db.database import get_db
 from db.db_wallet import get_wallet
-from tasks import wallet_reputation, wallet_reputation_all, all_addresses_generator
-from agents.walletReputation import WalletReputation
+from tasks import wallet_reputation
+from agents.walletReputation import all_addresses_generator
+from celery import group
 
 router = APIRouter(prefix="/wallet", tags=["wallet"])
 
@@ -39,10 +40,8 @@ async def create_or_update_all():
 
     :return: status info
     """
-    # wallet_reputation_all.delay()
-    for address in all_addresses_generator():
-        print(address)
-        WalletReputation(address=address).add_reputation_to_db()
+    action_chain = group([wallet_reputation.s(id) for id in all_addresses_generator()])
+    action_chain()
 
     return {"Status": "Task successfully add to execute"}
 
