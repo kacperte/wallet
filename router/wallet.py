@@ -40,13 +40,10 @@ async def create_or_update_all():
 
     :return: status info
     """
-    # action_chain = group([wallet_reputation.s(id) for id in all_addresses_generator()])
-    # action_chain()
-    id = "0xfaa2d3fc2a4e8b52d86a2c400cf0109b93dda6d9"
-    wallet_reputation.delay(id)
-    print(id)
+    action_chain = group([wallet_reputation.s(id) for id in all_addresses_generator()])
+    action_chain()
 
-    return {"Status": "Task successfully add to execute"}
+    return {"Status": "Tasks successfully add to execute"}
 
 
 # Read one user
