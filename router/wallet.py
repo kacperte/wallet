@@ -41,6 +41,7 @@ async def create_or_update_all():
     :return: status info
     """
     address_list = {address.to for address in all_addresses_generator()}
+    address_list = list(address_list)
     for i in range(1, 6):
         wallet_reputation.delay(address_list[i])
 
