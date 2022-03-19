@@ -3,7 +3,7 @@ from schemas import WalletBase
 from sqlalchemy.orm.session import Session
 from db.database import get_db
 from db.db_wallet import get_wallet
-from tasks import wallet_reputation
+from tasks import wallet_reputation, wallet_reputation_all
 from agents.walletReputation import all_addresses_generator
 from celery import group
 
@@ -40,9 +40,10 @@ async def create_or_update_all():
 
     :return: status info
     """
-    address_list = {address.to for address in all_addresses_generator()}
-    address_list = list(address_list)
-    wallet_reputation.delay(address_list[1])
+    # address_list = {address.to for address in all_addresses_generator()}
+    # address_list = list(address_list)
+    # wallet_reputation.delay(address_list[1])
+    wallet_reputation_all.delay()
 
     return {"Status": "Tasks successfully add to execute"}
 
