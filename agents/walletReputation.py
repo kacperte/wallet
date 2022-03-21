@@ -167,7 +167,6 @@ class WalletReputation:
             )
             .text
         )
-        self.driver.quit()
 
         # Clean value to final form
         nc_balance = nc_balance.split()[1]
