@@ -10,22 +10,22 @@ from agents.walletReputation import all_addresses_generator
 router = APIRouter(prefix="/wallet", tags=["wallet"])
 
 
-# Make or update one wallet
-@router.post(
-    "/run/{id}",
-    summary="Make Reputation Wallet ",
-    description="This API call function creates a wallet reputation for the specified address.",
-    response_description="Message with status",
-)
-async def create_or_update(id: str):
-    """
-
-    :param id: wallet adress
-    :return: status info
-    """
-    wallet_reputation.delay(id)
-
-    return {"Status": "Task successfully add to execute"}
+# # Make or update one wallet
+# @router.post(
+#     "/run/{id}",
+#     summary="Make Reputation Wallet ",
+#     description="This API call function creates a wallet reputation for the specified address.",
+#     response_description="Message with status",
+# )
+# async def create_or_update(id: str):
+#     """
+#
+#     :param id: wallet adress
+#     :return: status info
+#     """
+#     wallet_reputation.delay(id)
+#
+#     return {"Status": "Task successfully add to execute"}
 
 
 # Make or update all wallets
