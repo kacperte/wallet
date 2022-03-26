@@ -3,9 +3,9 @@ from schemas import WalletBase
 from sqlalchemy.orm.session import Session
 from db.database import get_db
 from db.db_wallet import get_wallet
-from tasks import wallet_reputation, wallet_reputation_all
+from tasks import wallet_reputation
 from agents.walletReputation import all_addresses_generator
-from celery import group
+
 
 router = APIRouter(prefix="/wallet", tags=["wallet"])
 
