@@ -46,10 +46,10 @@ async def create_or_update_all():
         if address not in address_list:
             address_list.append(address)
     for id in address_list:
-        data = id
         headers = {"content-type": "application/json"}
-        url = "https://wallet-reputation.herokuapp.com/wallet/run/"
-        requests.post(url, data, headers)
+        link = "https://wallet-reputation.herokuapp.com/wallet/run/"
+        requests.post(url=link, data=id)
+        break
 
     return {"Status": "Tasks successfully add to execute"}
 
