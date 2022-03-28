@@ -42,9 +42,9 @@ async def create_or_update_all():
     """
     address_list = []
     for address in all_addresses_generator():
-        if not address in address_list:
+        if address not in address_list:
             address_list.append(address)
-    print(address_list)
+    wallet_reputation.delay(address_list[0])
 
     return {"Status": "Tasks successfully add to execute"}
 
