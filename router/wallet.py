@@ -5,6 +5,7 @@ from db.database import get_db
 from db.db_wallet import get_wallet
 from tasks import wallet_reputation
 from agents.walletReputation import all_addresses_generator
+import requests
 
 
 router = APIRouter(prefix="/wallet", tags=["wallet"])
@@ -44,7 +45,11 @@ async def create_or_update_all():
     for address in all_addresses_generator():
         if address not in address_list:
             address_list.append(address)
-    wallet_reputation.delay(address_list[0])
+    for id in address_list:
+        data = id
+        headers = {"content-type": "application/json"}
+        url = "https://wallet-reputation.herokuapp.com/wallet/run/"
+        requests.post(url, data, headers)
 
     return {"Status": "Tasks successfully add to execute"}
 

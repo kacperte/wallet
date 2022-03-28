@@ -158,26 +158,19 @@ class WalletReputation:
         self.driver.get(base_url + self.address)
 
         # Scrap NC balance info
-
-        try:
-            nc_balance = (
-                WebDriverWait(self.driver, 20)
-                .until(
-                    EC.presence_of_element_located(
-                        (
-                            By.CSS_SELECTOR,
-                            "#ContentPlaceHolder1_divFilteredHolderBalance",
-                        )
-                    )
+        nc_balance = (
+            WebDriverWait(self.driver, 20)
+            .until(
+                EC.presence_of_element_located(
+                    (By.CSS_SELECTOR, "#ContentPlaceHolder1_divFilteredHolderBalance")
                 )
-                .text
             )
+            .text
+        )
 
-            # Clean value to final form
-            nc_balance = nc_balance.split()[1]
-            nc_balance = round(float(nc_balance.replace(",", "")), 2)
-        except:
-            nc_balance = 0
+        # Clean value to final form
+        nc_balance = nc_balance.split()[1]
+        nc_balance = round(float(nc_balance.replace(",", "")), 2)
 
         return nc_balance
 
