@@ -41,15 +41,11 @@ async def create_or_update_all():
 
     :return: status info
     """
-    address_list = []
+    address_list = set()
     for address in all_addresses_generator():
         if address not in address_list:
-            address_list.append(address)
-    for id in address_list:
-        headers = {"content-type": "application/json"}
-        link = "https://wallet-reputation.herokuapp.com/wallet/run/"
-        requests.post(url=link, data=id)
-        break
+            address_list.add(address)
+    print(len(address_list), address_list)
 
     return {"Status": "Tasks successfully add to execute"}
 
