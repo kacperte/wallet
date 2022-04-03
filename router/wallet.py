@@ -32,7 +32,7 @@ async def create_or_update(id: str):
 @router.post(
     "/run",
     summary="Make Reputation Wallet ",
-    description="This API call function creates a wallet reputation for the all addresses.",
+    description="This API call function creates a wallet reputation for the all addresses",
     response_description="Message with status",
 )
 async def create_or_update_all():
