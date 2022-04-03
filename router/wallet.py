@@ -5,8 +5,6 @@ from db.database import get_db
 from db.db_wallet import get_wallet
 from tasks import wallet_reputation
 from agents.walletReputation import all_addresses_generator
-import requests
-import time
 
 
 router = APIRouter(prefix="/wallet", tags=["wallet"])
@@ -43,8 +41,8 @@ async def create_or_update_all():
     :return: status info
     """
     for address in all_addresses_generator():
-        requests.post(f"https://wallet-reputation.herokuapp.com/wallet/run/{address}")
-        time.sleep(5)
+        wallet_reputation.delay(address)
+        break
 
     return {"Status": "Tasks successfully add to execute"}
 
