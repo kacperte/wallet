@@ -165,7 +165,6 @@ class WalletReputation:
                 (By.CSS_SELECTOR, "#ContentPlaceHolder1_divFilteredHolderBalance")
             )
         ).text
-        self.driver.close()
 
         # Clean value to final form
         nc_balance = nc_balance.split()[1]
