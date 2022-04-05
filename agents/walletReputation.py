@@ -155,6 +155,7 @@ class WalletReputation:
 
     def nc_balance(self):
         # Generate wallet address URL
+        return 1
         base_url = "https://polygonscan.com/token/0x64a795562b02830ea4e43992e761c96d208fc58d?a="
         self.driver.get(base_url + self.address)
         wait = WebDriverWait(self.driver, 10)
