@@ -155,22 +155,21 @@ class WalletReputation:
 
     def nc_balance(self):
         # Generate wallet address URL
-        return 1
-        base_url = "https://polygonscan.com/token/0x64a795562b02830ea4e43992e761c96d208fc58d?a="
-        self.driver.get(base_url + self.address)
-        wait = WebDriverWait(self.driver, 10)
-
-        # Scrap NC balance info
-        nc_balance = wait.until(
-            EC.presence_of_element_located(
-                (By.CSS_SELECTOR, "#ContentPlaceHolder1_divFilteredHolderBalance")
-            )
-        ).text
-
-        # Clean value to final form
-        nc_balance = nc_balance.split()[1]
-        nc_balance = round(float(nc_balance.replace(",", "")), 2)
-
+        # base_url = "https://polygonscan.com/token/0x64a795562b02830ea4e43992e761c96d208fc58d?a="
+        # self.driver.get(base_url + self.address)
+        # wait = WebDriverWait(self.driver, 10)
+        #
+        # # Scrap NC balance info
+        # nc_balance = wait.until(
+        #     EC.presence_of_element_located(
+        #         (By.CSS_SELECTOR, "#ContentPlaceHolder1_divFilteredHolderBalance")
+        #     )
+        # ).text
+        #
+        # # Clean value to final form
+        # nc_balance = nc_balance.split()[1]
+        # nc_balance = round(float(nc_balance.replace(",", "")), 2)
+        nc_balance = 1
         return nc_balance
 
     def time_in_nc(self):
