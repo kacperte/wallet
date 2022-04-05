@@ -160,7 +160,7 @@ class WalletReputation:
 
         # Scrap NC balance info
         nc_balance = (
-            WebDriverWait(self.driver, 20)
+            WebDriverWait(self.driver, 60)
             .until(
                 EC.presence_of_element_located(
                     (By.CSS_SELECTOR, "#ContentPlaceHolder1_divFilteredHolderBalance")
