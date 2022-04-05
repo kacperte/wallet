@@ -157,17 +157,14 @@ class WalletReputation:
         # Generate wallet address URL
         base_url = "https://polygonscan.com/token/0x64a795562b02830ea4e43992e761c96d208fc58d?a="
         self.driver.get(base_url + self.address)
+        wait = WebDriverWait(self.driver, 10)
 
         # Scrap NC balance info
-        nc_balance = (
-            WebDriverWait(self.driver, 60)
-            .until(
-                EC.presence_of_element_located(
-                    (By.CSS_SELECTOR, "#ContentPlaceHolder1_divFilteredHolderBalance")
-                )
+        nc_balance = wait.until(
+            EC.presence_of_element_located(
+                (By.CSS_SELECTOR, "#ContentPlaceHolder1_divFilteredHolderBalance")
             )
-            .text
-        )
+        ).text
         self.driver.close()
 
         # Clean value to final form
