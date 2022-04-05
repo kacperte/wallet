@@ -103,23 +103,23 @@ class WalletReputation:
         :param address: wallet address
         """
         self.address = address.lower()
-        self.session = SessionLocal()
-        options = Options()
-        options.add_argument("--headless")
-        options.add_argument("--no-sandbox")
-        options.add_argument("--disable-dev-shm-usage")
-        options.add_argument("--disable-notifications")
-        options.add_argument("--remote-debugging-port=9222")
-        options.add_experimental_option("excludeSwitches", ["enable-logging"])
-        options.add_experimental_option("excludeSwitches", ["enable-automation"])
-        prefs = {
-            "download_restrictions": 3,
-        }
-        options.add_experimental_option("prefs", prefs)
-        options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-        self.driver = webdriver.Chrome(
-            executable_path=os.environ.get("CHROMEDRIVER_PATH"), options=options
-        )
+        # self.session = SessionLocal()
+        # options = Options()
+        # options.add_argument("--headless")
+        # options.add_argument("--no-sandbox")
+        # options.add_argument("--disable-dev-shm-usage")
+        # options.add_argument("--disable-notifications")
+        # options.add_argument("--remote-debugging-port=9222")
+        # options.add_experimental_option("excludeSwitches", ["enable-logging"])
+        # options.add_experimental_option("excludeSwitches", ["enable-automation"])
+        # prefs = {
+        #     "download_restrictions": 3,
+        # }
+        # options.add_experimental_option("prefs", prefs)
+        # options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+        # self.driver = webdriver.Chrome(
+        #     executable_path=os.environ.get("CHROMEDRIVER_PATH"), options=options
+        # )
 
     def paper_hand(self):
         # Check if address whenever has sold NC -> create list with txn hash
