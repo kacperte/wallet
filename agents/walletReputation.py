@@ -103,7 +103,7 @@ class WalletReputation:
         :param address: wallet address
         """
         self.address = address.lower()
-        # self.session = SessionLocal()
+        self.session = SessionLocal()
         # options = Options()
         # options.add_argument("--headless")
         # options.add_argument("--no-sandbox")
