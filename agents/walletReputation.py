@@ -1,13 +1,9 @@
 from db.database import SessionLocal
 from db.models import DbWalletReputation, DbNcTransaction
 from datetime import datetime
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
-import os
 from collections import namedtuple
+import requests
+from bs4 import BeautifulSoup
 
 # Open db session for generator function
 session = SessionLocal()
@@ -104,22 +100,6 @@ class WalletReputation:
         """
         self.address = address.lower()
         self.session = SessionLocal()
-        # options = Options()
-        # options.add_argument("--headless")
-        # options.add_argument("--no-sandbox")
-        # options.add_argument("--disable-dev-shm-usage")
-        # options.add_argument("--disable-notifications")
-        # options.add_argument("--remote-debugging-port=9222")
-        # options.add_experimental_option("excludeSwitches", ["enable-logging"])
-        # options.add_experimental_option("excludeSwitches", ["enable-automation"])
-        # prefs = {
-        #     "download_restrictions": 3,
-        # }
-        # options.add_experimental_option("prefs", prefs)
-        # options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-        # self.driver = webdriver.Chrome(
-        #     executable_path=os.environ.get("CHROMEDRIVER_PATH"), options=options
-        # )
 
     def paper_hand(self):
         # Check if address whenever has sold NC -> create list with txn hash
@@ -154,22 +134,23 @@ class WalletReputation:
         return LP(round(balance, 2), len(add_lp_list), added, add_lp, remove_lp)
 
     def nc_balance(self):
-        # Generate wallet address URL
-        # base_url = "https://polygonscan.com/token/0x64a795562b02830ea4e43992e761c96d208fc58d?a="
-        # self.driver.get(base_url + self.address)
-        # wait = WebDriverWait(self.driver, 10)
-        #
-        # # Scrap NC balance info
-        # nc_balance = wait.until(
-        #     EC.presence_of_element_located(
-        #         (By.CSS_SELECTOR, "#ContentPlaceHolder1_divFilteredHolderBalance")
-        #     )
-        # ).text
-        #
-        # # Clean value to final form
-        # nc_balance = nc_balance.split()[1]
-        # nc_balance = round(float(nc_balance.replace(",", "")), 2)
-        nc_balance = 1
+        # Generate wallet address URL and request for html content
+        BASE_URL = "https://polygonscan.com/token/0x64a795562b02830ea4e43992e761c96d208fc58d?a="
+        page_html = requests.get(url=BASE_URL + self.address).content
+
+        # Make soup
+        soup = BeautifulSoup(page_html, "html.parser")
+
+        # Retrive NC Balance value
+        nc_balance = (
+            soup.find("div", id="ContentPlaceHolder1_divFilteredHolderBalance")
+            .text.split()[1]
+            .replace(",", "")
+        )
+
+        # Change type and round value
+        nc_balance = round(float(nc_balance.replace(",", "")), 2)
+
         return nc_balance
 
     def time_in_nc(self):
