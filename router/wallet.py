@@ -13,13 +13,12 @@ router = APIRouter(prefix="/wallet", tags=["wallet"])
 # Make or update one wallet
 @router.post(
     "/run/{id}",
-    summary="Make Reputation Wallet ",
+    summary="Make single Reputation Wallet for exact address ",
     description="This API call function creates a wallet reputation for the specified address.",
     response_description="Message with status",
 )
 async def create_or_update(id: str):
     """
-
     :param id: wallet adress
     :return: status info
     """
@@ -31,13 +30,12 @@ async def create_or_update(id: str):
 # Make or update all wallets
 @router.post(
     "/run",
-    summary="Make Reputation Wallet ",
+    summary="Make Reputation Wallet for all address from NC Coin network",
     description="This API call function creates a wallet reputation for the all addresses",
     response_description="Message with status",
 )
 async def create_or_update_all():
     """
-
     :return: status info
     """
     for address in all_addresses_generator():
@@ -57,7 +55,6 @@ async def create_or_update_all():
 )
 def get_wallet_info(request: Request, id: str, db: Session = Depends(get_db)):
     """
-
     :param request: request
     :param id: wallet adress
     :param db: connect to database

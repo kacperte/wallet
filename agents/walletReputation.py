@@ -5,13 +5,14 @@ from collections import namedtuple
 import requests
 from bs4 import BeautifulSoup
 
-# Open db session for generator function
-session = SessionLocal()
-
 # Create namedtuple
 PaperHand = namedtuple("PaperHand", "result paper_hand quantity")
 LP = namedtuple("LP", "balance add_lp_list added add_lp remove_lp")
 YF = namedtuple("YF", "balance yf_plus yf_minus added")
+
+
+# Open db session for generator function
+session = SessionLocal()
 
 
 # Generator to optimize code
@@ -91,7 +92,7 @@ def all_addresses_generator():
 
 class WalletReputation:
     """
-    Class responsible for creating, updating and adding to the wallet reputation database.
+    Class responsible for creating, updating and adding wallet reputation to the database.
     """
 
     def __init__(self, address: str):
@@ -254,6 +255,7 @@ class WalletReputation:
                 self.session.add(new_wallet)
                 self.session.commit()
                 self.session.refresh(new_wallet)
+                self.session.close()
             except Exception as e:
                 print(f"Add new: {e}")
         # Update wallet
@@ -261,6 +263,7 @@ class WalletReputation:
             try:
                 self.session.merge(new_wallet)
                 self.session.commit()
+                self.session.close()
             except Exception as e:
                 print(f"Update: {e}")
 
