@@ -2,7 +2,6 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 import os
-import re
 
 SQLALCHEMY_DATABASE_URL = os.environ["DATABASE_URL"]
 if SQLALCHEMY_DATABASE_URL.startswith("postgres://"):
@@ -10,7 +9,7 @@ if SQLALCHEMY_DATABASE_URL.startswith("postgres://"):
         "postgres://", "postgresql://", 1
     )
 
-engine = create_engine(SQLALCHEMY_DATABASE_URL)
+engine = create_engine(SQLALCHEMY_DATABASE_URL, pool_size=20, max_overflow=0)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()
