@@ -221,7 +221,7 @@ class WalletReputation:
 
         return wallet_rank
 
-    def add_reputation_to_db(self):
+    def add_single_reputation_to_db(self):
         # Check if address exists
         query = self.session.query(DbNcTransaction).filter(
             DbNcTransaction.to == self.address
@@ -255,7 +255,6 @@ class WalletReputation:
                 self.session.add(new_wallet)
                 self.session.commit()
                 self.session.refresh(new_wallet)
-                self.session.close()
             except Exception as e:
                 print(f"Add new: {e}")
         # Update wallet
@@ -266,8 +265,6 @@ class WalletReputation:
                 self.session.close()
             except Exception as e:
                 print(f"Update: {e}")
-
-        self.session.close
 
     @staticmethod
     def days_between(d1, d2) -> int:
