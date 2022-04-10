@@ -289,7 +289,7 @@ class WalletReputation:
                 add_to_yf=self.yf_balance(address).added,
                 wallet_rank=self.rank(address),
             )
-
+            print(wallet)
             # Add reputation for all wallets to databse
             try:
                 self.session.add(wallet)
