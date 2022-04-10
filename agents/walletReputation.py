@@ -296,7 +296,7 @@ class WalletReputation:
         # Add reputation for all wallets to databse
 
         try:
-            self.session.add_all(wallets)
+            self.session.insert(wallets)
             self.session.commit()
             self.session.refresh(wallets)
         except Exception as e:
