@@ -43,7 +43,7 @@ def wallet_reputation_single(id: str):
 
 
 @app.task(name="walletReputationTotal")
-def wallet_reputation_total(id: str):
-    WalletReputation().add_all_reputation_to_db()
+def wallet_reputation_total(id):
+    WalletReputation(addresses_list=id).add_all_reputation_to_db()
 
     return {"message": "Success"}
