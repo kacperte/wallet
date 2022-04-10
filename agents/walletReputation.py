@@ -96,7 +96,7 @@ class WalletReputation:
     Class responsible for creating, updating and adding wallet reputation to the database.
     """
 
-    def __init__(self, addresses_list: List[str] = []):
+    def __init__(self, addresses_list: List[str] = None):
         """
         :param address: wallet address
         """
