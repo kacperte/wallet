@@ -266,6 +266,7 @@ class WalletReputation:
                 print(f"Update: {e}")
 
     def add_all_reputation_to_db(self):
+        wallets = []
         for address in self.addresses_list:
             # Check if address exists
             address = address.lower()
@@ -276,27 +277,30 @@ class WalletReputation:
                 return {"Message": "Addres not exist"}
 
             # Prepare model for new wallet
-            wallet = DbWalletReputation(
-                adress=address,
-                time_in_nc=self.time_in_nc(address),
-                paper_hands=self.paper_hand(address).paper_hand,
-                proofs=self.paper_hand(address).result,
-                did_wallet_add_lp=self.lp_balance(address).added,
-                how_many_time_add_lp=self.lp_balance(address).add_lp_list,
-                lp_balance=self.lp_balance(address).balance,
-                nc_balance=self.nc_balance(address),
-                claim_balance=self.claim_balance(address),
-                add_to_yf=self.yf_balance(address).added,
-                wallet_rank=self.rank(address),
+            wallets.append(
+                DbWalletReputation(
+                    adress=address,
+                    time_in_nc=self.time_in_nc(address),
+                    paper_hands=self.paper_hand(address).paper_hand,
+                    proofs=self.paper_hand(address).result,
+                    did_wallet_add_lp=self.lp_balance(address).added,
+                    how_many_time_add_lp=self.lp_balance(address).add_lp_list,
+                    lp_balance=self.lp_balance(address).balance,
+                    nc_balance=self.nc_balance(address),
+                    claim_balance=self.claim_balance(address),
+                    add_to_yf=self.yf_balance(address).added,
+                    wallet_rank=self.rank(address),
+                )
             )
-            print(wallet)
-            # Add reputation for all wallets to databse
-            try:
-                self.session.add(wallet)
-                self.session.commit()
-                self.session.refresh(wallet)
-            except Exception as e:
-                print(f"Add new: {e}")
+
+        # Add reputation for all wallets to databse
+
+        try:
+            self.session.add_all(wallets)
+            self.session.commit()
+            self.session.refresh(wallets)
+        except Exception as e:
+            print(f"Add new: {e}")
 
     @staticmethod
     def days_between(d1, d2) -> int:
