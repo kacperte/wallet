@@ -35,8 +35,15 @@ def polygon_scraper_lp(
     return {"message": "Success"}
 
 
-@app.task(name="walletReputation")
-def wallet_reputation(id: str):
-    WalletReputation(id).add_single_reputation_to_db()
+@app.task(name="walletReputationSingle")
+def wallet_reputation_single(id: str):
+    WalletReputation().add_single_reputation_to_db(address=id)
+
+    return {"message": "Success"}
+
+
+@app.task(name="walletReputationTotal")
+def wallet_reputation_total(id: str):
+    WalletReputation().add_all_reputation_to_db()
 
     return {"message": "Success"}

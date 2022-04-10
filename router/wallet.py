@@ -3,7 +3,7 @@ from schemas import WalletBase
 from sqlalchemy.orm.session import Session
 from db.database import get_db
 from db.db_wallet import get_wallet
-from tasks import wallet_reputation
+from tasks import wallet_reputation_single, wallet_reputation_total
 from agents.walletReputation import all_addresses_generator
 import time
 
@@ -23,7 +23,7 @@ async def create_or_update(id: str):
     :param id: wallet adress
     :return: status info
     """
-    wallet_reputation.delay(id)
+    wallet_reputation_single.delay(id)
 
     return {"Status": "Task successfully add to execute"}
 
@@ -39,9 +39,9 @@ async def create_or_update_all():
     """
     :return: status info
     """
-    for address in all_addresses_generator():
-        wallet_reputation.delay(address)
-        break
+    addresses_list = all_addresses_generator()
+    addresses_list = list(addresses_list)
+    wallet_reputation_total.delay(addresses_list)
 
     return {"Status": "Tasks successfully add to execute"}
 
