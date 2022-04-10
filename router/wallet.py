@@ -40,7 +40,6 @@ async def create_or_update_all():
     :return: status info
     """
     addresses_list = all_addresses_generator()
-    addresses_list = list(addresses_list)
     wallet_reputation_total.delay(addresses_list)
 
     return {"Status": "Tasks successfully add to execute"}
