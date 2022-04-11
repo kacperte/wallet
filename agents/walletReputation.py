@@ -96,10 +96,7 @@ class WalletReputation:
     Class responsible for creating, updating and adding wallet reputation to the database.
     """
 
-    def __init__(self, addresses_list: List[str] = []):
-        """
-        :param address: wallet address
-        """
+    def __init__(self, addresses_list: List[str]):
         self.session = SessionLocal()
         self.addresses_list = addresses_list
 
@@ -294,13 +291,13 @@ class WalletReputation:
             )
 
         # Add reputation for all wallets to databse
-
-        try:
-            self.session.add_all(wallets)
-            self.session.commit()
-            self.session.refresh(wallets)
-        except Exception as e:
-            print(f"Add new: {e}")
+        print(wallets)
+        # try:
+        #     self.session.add_all(wallets)
+        #     self.session.commit()
+        #     self.session.refresh(wallets)
+        # except Exception as e:
+        #     print(f"Add new: {e}")
 
     @staticmethod
     def days_between(d1, d2) -> int:
