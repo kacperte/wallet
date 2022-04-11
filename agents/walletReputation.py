@@ -219,7 +219,7 @@ class WalletReputation:
 
     def make_wallet_reputation(self):
         for address in self.addresses_list:
-            # Check if address is correct
+            # Check if wallet address is correct
             if len(address) < 40:
                 break
 
