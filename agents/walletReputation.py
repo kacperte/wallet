@@ -137,6 +137,7 @@ class WalletReputation:
 
         # Make soup
         soup = BeautifulSoup(page_html, "html.parser")
+        print(soup)
 
         # Retrive NC Balance value
         nc_balance = (
