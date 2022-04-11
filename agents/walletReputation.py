@@ -217,53 +217,12 @@ class WalletReputation:
 
         return wallet_rank
 
-    def add_single_reputation_to_db(self, address: str):
-        # Check if address exists
-        query = self.session.query(DbNcTransaction).filter(
-            DbNcTransaction.to == address
-        )
-        if not self.session.query(query.exists()).scalar():
-            return {"Message": "Addres not exist"}
-
-        # Prepare model for new wallet
-        new_wallet = DbWalletReputation(
-            adress=address,
-            time_in_nc=self.time_in_nc(address),
-            paper_hands=self.paper_hand(address).paper_hand,
-            proofs=self.paper_hand(address).result,
-            did_wallet_add_lp=self.lp_balance(address).added,
-            how_many_time_add_lp=self.lp_balance(address).add_lp_list,
-            lp_balance=self.lp_balance(address).balance,
-            nc_balance=self.nc_balance(address),
-            claim_balance=self.claim_balance(address),
-            add_to_yf=self.yf_balance(address).added,
-            wallet_rank=self.rank(address),
-        )
-
-        # Check if wallet is already in db
-        query = self.session.query(DbWalletReputation).filter(
-            DbWalletReputation.adress == address
-        )
-
-        # If no, generate new wallet
-        if not self.session.query(query.exists()).scalar():
-            try:
-                self.session.add(new_wallet)
-                self.session.commit()
-                self.session.refresh(new_wallet)
-            except Exception as e:
-                print(f"Add new: {e}")
-        # Update wallet
-        else:
-            try:
-                self.session.merge(new_wallet)
-                self.session.commit()
-                self.session.close()
-            except Exception as e:
-                print(f"Update: {e}")
-
-    def add_all_reputation_to_db(self):
+    def make_wallet_reputation(self):
         for address in self.addresses_list:
+            # Check if address is correct
+            if len(address) < 40:
+                break
+
             # Check if address exists
             address = address.lower()
             query = self.session.query(DbNcTransaction).filter(

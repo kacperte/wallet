@@ -3,32 +3,15 @@ from schemas import WalletBase
 from sqlalchemy.orm.session import Session
 from db.database import get_db
 from db.db_wallet import get_wallet
-from tasks import wallet_reputation_single, wallet_reputation_total
+from tasks import wallet_reputation
 from agents.walletReputation import all_addresses_generator
-import time
 
 
 router = APIRouter(prefix="/wallet", tags=["wallet"])
 
-
-# Make or update one wallet
-@router.post(
-    "/run/{id}",
-    summary="Make single Reputation Wallet for exact address ",
-    description="This API call function creates a wallet reputation for the specified address.",
-    response_description="Message with status",
-)
-async def create_or_update(id: str):
-    """
-    :param id: wallet adress
-    :return: status info
-    """
-    wallet_reputation_single.delay(id)
-
-    return {"Status": "Task successfully add to execute"}
-
-
 # Make or update all wallets
+
+
 @router.post(
     "/run",
     summary="Make Reputation Wallet for all address from NC Coin network",
@@ -41,7 +24,7 @@ async def create_or_update_all():
     """
     addresses_list = list(set([address for address in all_addresses_generator()]))
     print(addresses_list)
-    wallet_reputation_total.delay(addresses_list)
+    wallet_reputation.delay(addresses_list)
 
     return {"Status": "Tasks successfully add to execute"}
 
