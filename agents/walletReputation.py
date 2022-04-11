@@ -289,6 +289,7 @@ class WalletReputation:
                     wallet_rank=self.rank(address),
                 )
             )
+            break
 
         # Add reputation for all wallets to databse
         print(wallets)
