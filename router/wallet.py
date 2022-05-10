@@ -14,7 +14,7 @@ router = APIRouter(prefix="/wallet", tags=["wallet"])
 
 @router.post(
     "/run",
-    summary="Make Reputation Wallet for all address from NC Coin network",
+    summary="Make Reputation Wallet for all address from NC Coin network ",
     description="This API call function creates a wallet reputation for the all addresses",
     response_description="Message with status",
 )
