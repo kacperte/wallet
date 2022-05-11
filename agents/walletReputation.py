@@ -221,7 +221,7 @@ class WalletReputation:
         for address in self.addresses_list:
             # Check if wallet address is correctt
             if len(address) < 40:
-                break
+                return "Wrong address"
 
             # Check if address exists
             address = address.lower()
