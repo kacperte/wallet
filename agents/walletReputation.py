@@ -222,6 +222,7 @@ class WalletReputation:
             # Check if wallet address is correct
             if len(address) < 40:
                 break
+            print(address)
 
             # Check if address exists
             address = address.lower()

@@ -1,7 +1,7 @@
 from celery import Celery
 import os
 from agents.polygonScraper import PolygonscanScraper
-from agents.walletReputation import WalletReputation, all_addresses_generator
+from agents.walletReputation import WalletReputation
 
 app = Celery("queue")
 
