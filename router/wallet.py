@@ -23,7 +23,8 @@ async def create_or_update_all():
     :return: status info
     """
     addresses_list = list(set([address for address in all_addresses_generator()]))
-    wallet_reputation.delay(addresses_list)
+    print(len(addresses_list))
+    # wallet_reputation.delay(addresses_list)
 
     return {"Status": "Tasks successfully add to execute"}
 
@@ -33,7 +34,7 @@ async def create_or_update_all():
     "/{id}",
     response_model=WalletBase,
     summary="Retrieve one wallet",
-    description="This API call function fetching a wallet reputation for the specified address.",
+    description="This API call function fetching a wallet reputation for the specified address. ",
     response_description="Wallet reputation status",
 )
 def get_wallet_info(request: Request, id: str, db: Session = Depends(get_db)):
