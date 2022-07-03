@@ -5,6 +5,7 @@ from collections import namedtuple
 import requests
 from bs4 import BeautifulSoup
 from typing import List
+import time
 
 # Create namedtuple
 PaperHand = namedtuple("PaperHand", "result paper_hand quantity")
@@ -141,6 +142,7 @@ class WalletReputation:
         # Check if wallet url is valid
         nc_balance = 0
         try:
+            time.sleep(2)
             nc_balance = (
                 soup.find("div", id="ContentPlaceHolder1_divFilteredHolderBalance")
                 .text.split()[1]
