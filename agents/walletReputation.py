@@ -219,6 +219,7 @@ class WalletReputation:
 
     def make_wallet_reputation(self):
         for address in self.addresses_list:
+            print(address)
             # Check if wallet address is correctt
             if len(address) < 40:
                 return "Wrong address"
@@ -250,9 +251,7 @@ class WalletReputation:
             query = self.session.query(DbWalletReputation).filter(
                 DbWalletReputation.adress == address
             )
-            print(
-                f"1.{address}/n2.{wallet}/n3.{self.session.query(query.exists()).scalar()}"
-            )
+
             # If no, generate new wallet
             if not self.session.query(query.exists()).scalar():
                 try:
