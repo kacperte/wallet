@@ -138,17 +138,20 @@ class WalletReputation:
         soup = BeautifulSoup(page_html, "html.parser")
 
         # Retrive NC Balance value
-        # Check if data from wallet url is valid
-
-        nc_balance = soup.find("div", id="ContentPlaceHolder1_divFilteredHolderBalance")
-        if nc_balance:
-            nc_balance.text.split()[1].replace(",", "")
+        # Check if wallet url is valid
+        try:
+            nc_balance = (
+                soup.find("div", id="ContentPlaceHolder1_divFilteredHolderBalance")
+                .text.split()[1]
+                .replace(",", "")
+            )
 
             # Change type and round value
             nc_balance = round(float(nc_balance.replace(",", "")), 2)
+        except Exception as e:
+            print(e)
 
-            return nc_balance
-        return 0
+        return nc_balance
 
     def time_in_nc(self, address: str):
         # Create list with transactions date
