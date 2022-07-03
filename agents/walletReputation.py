@@ -139,6 +139,7 @@ class WalletReputation:
 
         # Retrive NC Balance value
         # Check if wallet url is valid
+        nc_balance = ""
         try:
             nc_balance = (
                 soup.find("div", id="ContentPlaceHolder1_divFilteredHolderBalance")
