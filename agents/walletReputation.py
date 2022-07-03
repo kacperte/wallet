@@ -228,16 +228,13 @@ class WalletReputation:
                 return "Wrong address"
 
             # Check if address exists
-            print("1")
             address = address.lower()
-            print("2")
             query = self.session.query(DbNcTransaction).filter(
                 DbNcTransaction.to == address
             )
-            print("3")
             if not self.session.query(query.exists()).scalar():
                 return {"Message": "Addres not exist"}
-            print("4")
+
             # Prepare model for new wallet
             wallet = DbWalletReputation(
                 adress=address,
@@ -252,12 +249,12 @@ class WalletReputation:
                 add_to_yf=self.yf_balance(address).added,
                 wallet_rank=self.rank(address),
             )
-            print("5")
+
             # Check if wallet is already in db
             query = self.session.query(DbWalletReputation).filter(
                 DbWalletReputation.adress == address
             )
-            print("6")
+
             # If no, generate new wallet
             if not self.session.query(query.exists()).scalar():
                 try:
