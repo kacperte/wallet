@@ -228,10 +228,13 @@ class WalletReputation:
                 return "Wrong address"
 
             # Check if address exists
+            print("1")
             address = address.lower()
+            print("2")
             query = self.session.query(DbNcTransaction).filter(
                 DbNcTransaction.to == address
             )
+            print("3")
             if not self.session.query(query.exists()).scalar():
                 return {"Message": "Addres not exist"}
 
