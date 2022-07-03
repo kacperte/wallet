@@ -11,7 +11,6 @@ PaperHand = namedtuple("PaperHand", "result paper_hand quantity")
 LP = namedtuple("LP", "balance add_lp_list added add_lp remove_lp")
 YF = namedtuple("YF", "balance yf_plus yf_minus added")
 
-
 # Open db session for generator function
 session = SessionLocal()
 
@@ -139,16 +138,17 @@ class WalletReputation:
         soup = BeautifulSoup(page_html, "html.parser")
 
         # Retrive NC Balance value
-        nc_balance = (
-            soup.find("div", id="ContentPlaceHolder1_divFilteredHolderBalance")
-            .text.split()[1]
-            .replace(",", "")
-        )
+        # Check if data from wallet url is valid
 
-        # Change type and round value
-        nc_balance = round(float(nc_balance.replace(",", "")), 2)
+        nc_balance = soup.find("div", id="ContentPlaceHolder1_divFilteredHolderBalance")
+        if nc_balance:
+            nc_balance.text.split()[1].replace(",", "")
 
-        return nc_balance
+            # Change type and round value
+            nc_balance = round(float(nc_balance.replace(",", "")), 2)
+
+            return nc_balance
+        return 0
 
     def time_in_nc(self, address: str):
         # Create list with transactions date
