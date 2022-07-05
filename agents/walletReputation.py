@@ -188,41 +188,6 @@ class WalletReputation:
         add_to_yf = bool(plus_trans)
         return YF(yf_balance, plus_trans, minus_trans, add_to_yf)
 
-    def rank(self, address: str):
-        paper_hands = self.paper_hand(address).paper_hand
-        add_to_yf = self.yf_balance(address).added
-        have_lp = self.lp_balance(address).balance
-        how_much_sell = self.paper_hand(address).quantity
-
-        # Wallet rank conditions
-        condition_DH = not paper_hands and add_to_yf and have_lp > 0
-        condition_DH2 = (
-            paper_hands and add_to_yf and have_lp > 0 and how_much_sell <= 50000
-        )
-        condition_DH2a = (
-            paper_hands and add_to_yf and have_lp > 0 and how_much_sell > 50000
-        )
-        condition_DH3 = not paper_hands and have_lp > 0
-        condition_DH4 = paper_hands and have_lp > 0 and how_much_sell <= 50000
-        condition_DH4a = paper_hands and have_lp > 0 and how_much_sell > 50000
-
-        wallet_rank = "Diamond Hands5"
-
-        if condition_DH:
-            wallet_rank = "Diamond Hands"
-        elif condition_DH2:
-            wallet_rank = "Diamond Hands2"
-        elif condition_DH2a:
-            wallet_rank = "Diamond Hands2a"
-        elif condition_DH3:
-            wallet_rank = "Diamond Hands3"
-        elif condition_DH4:
-            wallet_rank = "Diamond Hands4"
-        elif condition_DH4a:
-            wallet_rank = "Diamond Hands4a"
-
-        return wallet_rank
-
     def make_wallet_reputation(self):
         for address in self.addresses_list:
             print(address)
@@ -244,13 +209,13 @@ class WalletReputation:
                 time_in_nc=self.time_in_nc(address),
                 paper_hands=self.paper_hand(address).paper_hand,
                 proofs=self.paper_hand(address).result,
+                sold_nc=self.paper_hand(address).quantity,
                 did_wallet_add_lp=self.lp_balance(address).added,
                 how_many_time_add_lp=self.lp_balance(address).add_lp_list,
                 lp_balance=self.lp_balance(address).balance,
                 nc_balance=self.nc_balance(address),
                 claim_balance=self.claim_balance(address),
                 add_to_yf=self.yf_balance(address).added,
-                wallet_rank=self.rank(address),
             )
 
             # Check if wallet is already in db
