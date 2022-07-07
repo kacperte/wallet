@@ -25,7 +25,6 @@ async def create_or_update_all():
     addresses_list = list(set([address for address in all_addresses_generator()]))
     addresses_list.remove("Null Address: 0x000…000")
     addresses_list.remove("0x: Exchange Proxy Flash Wallet")
-    print(addresses_list, len(addresses_list))
     wallet_reputation.delay(addresses_list)
 
     return {"Status": "Tasks successfully add to execute"}

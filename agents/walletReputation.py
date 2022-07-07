@@ -190,7 +190,6 @@ class WalletReputation:
 
     def make_wallet_reputation(self):
         for address in self.addresses_list:
-            print(address)
             # Check if wallet address is correctt
             if len(address) < 40:
                 return "Wrong address"
