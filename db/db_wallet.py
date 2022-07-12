@@ -34,7 +34,7 @@ def get_transactions_history(db: Session, id: str):
     """
     transactions = (
         db.query(DbNcTransaction)
-        .filter(DbNcTransaction.adress == id.lower())
+        .filter(DbNcTransaction.to == id.lower())
         .filter(DbNcTransaction.From == id.lower())
         .all()
     )
