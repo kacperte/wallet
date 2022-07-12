@@ -32,12 +32,14 @@ def get_transactions_history(db: Session, id: str):
     :param id: Wallet adress
     :return: Transactions info
     """
-    transactions = (
-        db.query(DbNcTransaction)
-        .filter(DbNcTransaction.to == id.lower())
-        .filter(DbNcTransaction.From == id.lower())
-        .all()
-    )
+    transactions = [
+        (
+            db.query(DbNcTransaction)
+            .filter(DbNcTransaction.to == id.lower())
+            .filter(DbNcTransaction.From == id.lower())
+            .all()
+        )
+    ]
     if not transactions:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
