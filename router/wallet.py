@@ -30,7 +30,7 @@ async def create_or_update_all():
 
 @router.get(
     "/wallet/{id}",
-    response_model=TransactionBase,
+    response_model=WalletBase,
     summary="Retrieve one wallet",
     description="This API call function fetching a wallet reputation for the specified address. ",
     response_description="Wallet reputation status",
@@ -48,7 +48,7 @@ def get_wallet_info(request: Request, id: str, db: Session = Depends(get_db)):
 
 @router.get(
     "/transactions/{id}",
-    response_model=WalletBase,
+    response_model=TransactionBase,
     summary="Retrieve wallet transactions history",
     description="This API call function fetching a wallet reputation for the specified address. ",
     response_description="Wallet transactions status",
