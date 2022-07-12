@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, Request
-from schemas import WalletBase
+from schemas import WalletBase, TransactionBase
 from sqlalchemy.orm.session import Session
 from db.database import get_db
 from db.db_wallet import get_wallet, get_transactions_history
@@ -30,7 +30,7 @@ async def create_or_update_all():
 
 @router.get(
     "/wallet/{id}",
-    response_model=WalletBase,
+    response_model=TransactionBase,
     summary="Retrieve one wallet",
     description="This API call function fetching a wallet reputation for the specified address. ",
     response_description="Wallet reputation status",
