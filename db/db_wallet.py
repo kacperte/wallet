@@ -1,5 +1,5 @@
 from sqlalchemy.orm.session import Session
-from db.models import DbWalletReputation
+from db.models import DbWalletReputation, DbNcTransaction
 from fastapi import HTTPException, status
 
 
@@ -33,9 +33,9 @@ def get_transactions_history(db: Session, id: str):
     :return: Transactions info
     """
     transactions = (
-        db.query(DbWalletReputation)
-        .filter(DbWalletReputation.adress == id.lower())
-        .filter(DbWalletReputation.From == id.lower())
+        db.query(DbNcTransaction)
+        .filter(DbNcTransaction.adress == id.lower())
+        .filter(DbNcTransaction.From == id.lower())
         .all()
     )
     if not transactions:
