@@ -33,10 +33,7 @@ def get_transactions_history(db: Session, id: str):
     :return: Transactions info
     """
     transactions = (
-        db.query(DbNcTransaction)
-        .filter(DbNcTransaction.to == id.lower())
-        .filter(DbNcTransaction.From == id.lower())
-        .first()
+        db.query(DbNcTransaction).filter(DbNcTransaction.to == id.lower()).all()
     )
 
     if not transactions:
