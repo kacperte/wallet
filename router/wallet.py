@@ -48,7 +48,6 @@ def get_wallet_info(request: Request, id: str, db: Session = Depends(get_db)):
 
 @router.get(
     "/transactions/{id}",
-    response_model=TransactionBase,
     summary="Retrieve wallet transactions history",
     description="This API call function fetching a wallet reputation for the specified address. ",
     response_description="Wallet transactions status",
