@@ -60,4 +60,5 @@ def get_transactions_info(request: Request, id: str, db: Session = Depends(get_d
     :return: json
     """
     result = get_transactions_history(db, id)
+    print(f"Wynik: {result}")
     return result
