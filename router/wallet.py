@@ -49,8 +49,8 @@ def get_wallet_info(request: Request, id: str, db: Session = Depends(get_db)):
 @router.get(
     "/transactions/{id}",
     summary="Retrieve wallet transactions history",
-    description="This API call function fetching a wallet reputation for the specified address. ",
-    response_description="Wallet transactions status",
+    description="This API call function fetching a wallet transactions for the specified address.",
+    response_description="Wallet transactions information",
 )
 def get_transactions_info(request: Request, id: str, db: Session = Depends(get_db)):
     """
@@ -60,5 +60,4 @@ def get_transactions_info(request: Request, id: str, db: Session = Depends(get_d
     :return: json
     """
     result = get_transactions_history(db, id)
-    print(f"Wynik: {result}")
     return result

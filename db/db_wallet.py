@@ -28,7 +28,6 @@ def get_wallet(db: Session, id: str):
 def get_transactions_history(db: Session, id: str):
     """
      Get wallet transactions history
-
     :param db: connect to database
     :param id: Wallet adress
     :return: Transactions info
