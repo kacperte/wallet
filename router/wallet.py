@@ -31,7 +31,7 @@ async def create_or_update_all():
 @router.get(
     "/wallet/{id}",
     response_model=WalletBase,
-    summary="Retrieve one wallet",
+    summary="Retrieve info about one wallet",
     description="This API call function fetching a wallet reputation for the specified address. ",
     response_description="Wallet reputation status",
 )
